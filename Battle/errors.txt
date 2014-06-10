@@ -1,0 +1,8 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/battle.rpy", line 8: is not terminated with a newline. (Check strings and parenthesis.)
+        $ spirit1Image = image(im.Scale("assets/cPers.png", 180, 200)
+
+Ren'Py Version: Ren'Py 6.17.6.512
