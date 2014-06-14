@@ -1,6 +1,22 @@
 init:
     image bg = "assets/trees.jpg"
     
+    #ATL Section
+#    transform shake(times):
+#        parallel:
+#            im.Scale("assets/ShadowBoss.png", 400, 600)
+        
+#        parallel:
+#            linear .01 xoffset (10)
+#            linear .01 xoffset (-10)
+#            linear .01 xoffset (10)
+#            linear .01 xoffset (-10)
+#            linear .01 xoffset (0)
+#            repeat times
+            
+        
+    #show InsertNameHere at shake(InsertHowManyTimes)
+    
     python:
         
         renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
@@ -39,6 +55,8 @@ init:
 screen attack():
     # TODO make it select an attack and a target after attack selected
     key "K_SPACE" action Return("aaa")
+    
+    
 
 label battle():
     
@@ -46,22 +64,28 @@ label battle():
     scene bg with Dissolve(1)
     
     $ renpy.show("vesto", at_list = [vestoSpot])
-    show spirit1 at spirit1Spot with Dissolve(.5)
-    show spirit2 at spirit2Spot with Dissolve(.5)
-    show spirit3 at spirit3Spot with Dissolve(.5)
-    $ bossBattle = 0
-    if bossBattle:
-        show bane1 at bossBane1Spot with Dissolve(.5)
-        show bane2 at bossBane2Spot with Dissolve(.5)
-        show bane3 at bossBane3Spot with Dissolve(.5)
-        show boss at boss with Dissolve(.5)
-    else:
-        show bane1 at bane1Spot with Dissolve(.5)
-        show bane2 at bane2Spot with Dissolve(.5)
-        show bane3 at bane3Spot with Dissolve(.5)
-        show bane4 at bane4Spot with Dissolve(.5)
-        show bane5 at bane5Spot with Dissolve(.5)
+
+    show spirit1 at spirit1Spot
+    show spirit2 at spirit2Spot 
+    show spirit3 at spirit3Spot
+    with Dissolve(.5)
     
+    $ bossBattle = 1
+    if bossBattle:
+        show bane1 at bossBane1Spot
+        show bane2 at bossBane2Spot 
+        show bane3 at bossBane3Spot 
+        with Dissolve(.5)
+        
+        show boss at boss with hpunch
+    else:
+        show bane1 at bane1Spot 
+        show bane2 at bane2Spot 
+        show bane3 at bane3Spot 
+        show bane4 at bane4Spot 
+        show bane5 at bane5Spot
+        with Dissolve(.5)
+
     
 #    python:
 #        def clicky():

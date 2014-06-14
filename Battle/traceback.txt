@@ -1,40 +1,38 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While running game code:
-  File "renpy/common/00start.rpy", line 138, in script call
-    call _load_reload_game from _call__load_reload_game_1
-  File "renpy/common/00keymap.rpy", line 307, in script
-    python hide:
-  File "renpy/common/00keymap.rpy", line 317, in <module>
-    renpy.load("_reload-2")
-AttributeError: 'StoreModule' object has no attribute 'clicky'
+Executing ATL code at game/battle.rpy:6
+  File "game/script.rpy", line 87, in script call
+    call battle()
+  File "game/battle.rpy", line 80, in script
+    show boss at shake(100)
+Exception: ATL appears to be in an infinite loop.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\bootstrap.py", line 285, in bootstrap
-    renpy.main.main()
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\main.py", line 349, in main
-    run(restart)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\main.py", line 77, in run
-    renpy.execution.run_context(True)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\execution.py", line 515, in run_context
-    context.run()
-  File "renpy/common/00start.rpy", line 138, in script call
-    call _load_reload_game from _call__load_reload_game_1
-  File "renpy/common/00keymap.rpy", line 307, in script
-    python hide:
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "renpy/common/00keymap.rpy", line 317, in <module>
-    renpy.load("_reload-2")
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\loadsave.py", line 563, in load
-    roots, log = loads(location.load(filename))
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\loadsave.py", line 49, in loads
-    return cPickle.loads(s)
-AttributeError: 'StoreModule' object has no attribute 'clicky'
+  File "game/script.rpy", line 87, in script call
+    call battle()
+  File "game/battle.rpy", line 80, in script
+    show boss at shake(100)
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\ast.py", line 1003, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\ast.py", line 976, in show_imspec
+    atl=atl)
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\exports.py", line 443, in show
+    sls.add(layer, img, key, zorder, behind, at_list=at_list, name=name, atl=atl, default_transform=renpy.config.default_transform, transient=transient)
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\display\core.py", line 759, in add
+    thing._show()
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\display\motion.py", line 858, in _show
+    super(ATLTransform, self)._show()
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\display\motion.py", line 845, in _show
+    self.update_state()
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\display\motion.py", line 706, in update_state
+    fr = self.function(self, self.st, self.at)
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\atl.py", line 394, in execute
+    action, arg, pause = self.block.execute(trans, timebase, self.atl_state, event)
+  File "C:\Users\Cory\Desktop\renpy-6.17.6-sdk\renpy\atl.py", line 587, in execute
+    raise Exception("ATL appears to be in an infinite loop.")
+Exception: ATL appears to be in an infinite loop.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512

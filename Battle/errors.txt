@@ -2,17 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 64: end of line expected.
-(Perhaps you left out a " at the end of the first line.)
-    """
-        python:
-            def clicky():
-                renpy.sound.play('assets/smw_1-up.wav')
-            
-            ui.imagebutton(Image('Mario-icon.png')
-                , im.MatrixColor(Image('Mario-icon.png'), im.matrix.invert())
-                , Image('Mario-icon.png')
-                , clicked = clicky)
-        """
+File "game/battle.rpy", line 17: invalid syntax
+    shakeTarget = block:
+                        ^
+    
 
 Ren'Py Version: Ren'Py 6.17.6.512
