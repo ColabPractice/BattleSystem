@@ -1,24 +1,40 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While executing init code:
-  File "game/battle.rpy", line 8, in script
-    $ spirit1Image = renpy.image(im.Scale("assets/cPers.png", 180, 200))
-  File "game/battle.rpy", line 8, in <module>
-    $ spirit1Image = renpy.image(im.Scale("assets/cPers.png", 180, 200))
-TypeError: image() takes exactly 2 arguments (1 given)
+While running game code:
+  File "renpy/common/00start.rpy", line 138, in script call
+    call _load_reload_game from _call__load_reload_game_1
+  File "renpy/common/00keymap.rpy", line 307, in script
+    python hide:
+  File "renpy/common/00keymap.rpy", line 317, in <module>
+    renpy.load("_reload-2")
+AttributeError: 'StoreModule' object has no attribute 'clicky'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/battle.rpy", line 8, in script
-    $ spirit1Image = renpy.image(im.Scale("assets/cPers.png", 180, 200))
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\bootstrap.py", line 285, in bootstrap
+    renpy.main.main()
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\main.py", line 349, in main
+    run(restart)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\main.py", line 77, in run
+    renpy.execution.run_context(True)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\execution.py", line 515, in run_context
+    context.run()
+  File "renpy/common/00start.rpy", line 138, in script call
+    call _load_reload_game from _call__load_reload_game_1
+  File "renpy/common/00keymap.rpy", line 307, in script
+    python hide:
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/battle.rpy", line 8, in <module>
-    $ spirit1Image = renpy.image(im.Scale("assets/cPers.png", 180, 200))
-TypeError: image() takes exactly 2 arguments (1 given)
+  File "renpy/common/00keymap.rpy", line 317, in <module>
+    renpy.load("_reload-2")
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\loadsave.py", line 563, in load
+    roots, log = loads(location.load(filename))
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\loadsave.py", line 49, in loads
+    return cPickle.loads(s)
+AttributeError: 'StoreModule' object has no attribute 'clicky'
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512

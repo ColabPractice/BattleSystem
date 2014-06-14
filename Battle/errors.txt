@@ -2,7 +2,17 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 8: is not terminated with a newline. (Check strings and parenthesis.)
-        $ spirit1Image = image(im.Scale("assets/cPers.png", 180, 200)
+File "game/battle.rpy", line 64: end of line expected.
+(Perhaps you left out a " at the end of the first line.)
+    """
+        python:
+            def clicky():
+                renpy.sound.play('assets/smw_1-up.wav')
+            
+            ui.imagebutton(Image('Mario-icon.png')
+                , im.MatrixColor(Image('Mario-icon.png'), im.matrix.invert())
+                , Image('Mario-icon.png')
+                , clicked = clicky)
+        """
 
 Ren'Py Version: Ren'Py 6.17.6.512

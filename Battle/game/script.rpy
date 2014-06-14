@@ -5,6 +5,13 @@
 
 init:
     
+    image office = "assets/office.png"
+    
+    python:
+        #config.keymap['dismiss'].remove('K_SPACE')
+        #config.keymap['hide_windows'].append('K_SPACE')
+        pass
+    
     python:
         
         # TODO start spirit and bane class
@@ -17,7 +24,7 @@ init:
                 self.speed = int(10)
                 self.maxHealth = 100
                 self.power = 20
-                self.img = "Mario-icon.png"
+                self.img = "pers normal"
             
         
     $ aaa = Spirit(fName = "pers")
@@ -31,13 +38,10 @@ label start:
     
     scene office
 
-    "start game"
-    # $ name = aaa.firstName
-    $ name = "unchanged name"
-    "[name!t]"
-    call battle
-    $ name = _return
+    "Start game"
     
-    scene office
+    call battle()
+    scene office with Dissolve(1)
     
-    "[name!t]"
+    $ renpy.say("", _return)
+    "Game end"
