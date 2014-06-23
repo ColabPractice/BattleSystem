@@ -4,76 +4,22 @@
 # eg. image eileen happy = "eileen_happy.png"
 
 init:
-    
+
     image office = "assets/office.png"
-    image pers = "assets/cPers.png"
+    image pers = im.Scale("assets/cPers.png", 180, 200)
+    image logi = "mario-icon.png"
+    image kines = im.Flip(im.Scale("assets/weakhearth.png", 150, 150), horizontal = True, vertical = True)
+    
     
     python:
         #config.keymap['dismiss'].remove('K_SPACE')
         #config.keymap['hide_windows'].append('K_SPACE')
         pass
-    
-    python:
-        
-        # TODO start spirit and bane class
-        #Spirit Class
-        class Spirit():
-            
-            def __init__(self, name, image, health = 100, speed = 10, power = 20):
-                self.name = name
-                self.maxHealth = health
-                self.speed = speed
-                self.power = power
-                self.damageTaken = 0
-                self.img = image
-                
-            def getHealth(self):
-                return (self.maxHealth - self.damageTaken)
-                
-            def getHurt(self, amount):
-                self.damageTaken += amount
-                if self.damageTaken > self.maxHealth:
-                    self.damageTaken = self.maxHealth
-                
-            def getHealed(self, amount):
-                self.damageTaken -= amount
-                if self.damageTaken < 0:
-                    self.damageTaken = 0
-                    
-            def isDead(self):
-                return True if self.damageTaken >= self.maxHealth else False
-        
-        #Bane Class
-        class Bane():
-            
-            def __init__(self, name, imageLocation, health = 100, speed = 10, power = 20):
-                self.name = name
-                self.maxHealth = health
-                self.speed = speed
-                self.power = power
-                self.damageTaken = 0
-                self.img = imageLocation
-                
-            def getHealth(self):
-                return (self.maxHealth - self.damageTaken)
-                
-            def getHurt(self, amount):
-                self.damageTaken += amount
-                if self.damageTaken > self.maxHealth:
-                    self.damageTaken = self.maxHealth
-                
-            def getHealed(self, amount):
-                self.damageTaken -= amount
-                if self.damageTaken < 0:
-                    self.damageTaken = 0
-                    
-            def isDead(self):
-                return True if self.damageTaken >= self.maxHealth else False
-                
-        
+
+        # TODO spirit and bane class stuff?
         # TODO Make the system do Shit, Maybe.
                 
-    $ cPers = Spirit("Pers", "pers")
+    
 
 # Declare characters used by this game.
 define e = Character('Eileen', color="#c8ffc8")

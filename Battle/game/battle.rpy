@@ -1,6 +1,8 @@
 init:
     image bg = "assets/trees.jpg"
     
+    $ import Actor
+
     #ATL Section
 #    transform shake(times):
 #        parallel:
@@ -16,6 +18,11 @@ init:
             
         
     #show InsertNameHere at shake(InsertHowManyTimes)
+    
+    python:
+        cPers = Actor.Spirit("Pers", "pers")
+        cKines = Actor.Spirit("Kines", "kines", speed = 20, power = 15)
+        cLogi = Actor.Spirit("Logi", "logi", speed = 5, power = 40)
     
     python:
         
@@ -64,10 +71,13 @@ label battle():
     scene bg with Dissolve(1)
     
     $ renpy.show("vesto", at_list = [vestoSpot])
-
-    show spirit1 at spirit1Spot
-    show spirit2 at spirit2Spot 
-    show spirit3 at spirit3Spot
+    $ renpy.show(cPers.img, at_list = [spirit1Spot])
+    $ renpy.show(cKines.img, at_list = [spirit2Spot])
+    $ renpy.show(cLogi.img, at_list = [spirit3Spot])
+    
+    #show spirit1 at spirit1Spot
+    #show spirit2 at spirit2Spot 
+    #show spirit3 at spirit3Spot
     with Dissolve(.5)
     
     $ bossBattle = 1

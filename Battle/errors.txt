@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 17: invalid syntax
-    shakeTarget = block:
-                        ^
+File "game/battle.rpy", line 3: invalid syntax
+    import Actor.*
+                  ^
     
 
 Ren'Py Version: Ren'Py 6.17.6.512
