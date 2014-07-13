@@ -36,5 +36,5 @@ label start:
     call battle()
     scene office with Dissolve(1)
     
-    $ renpy.say("", _return)
+    #$ renpy.say("", _return)
     "Game end"

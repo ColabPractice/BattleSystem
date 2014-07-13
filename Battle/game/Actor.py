@@ -8,8 +8,7 @@ class Spirit(object):
         self.ID = name
         self.maxHealth = health
         self.speed = speed
-        # TODO make 'getting ready' method, progress towards actors turn
-        self.nextTurn = speed
+        self.nextTurnIn = 100.0
         self.power = power
         self.damageTaken = 0
         self.img = image
@@ -51,6 +50,10 @@ class Spirit(object):
     def attack(self, atkPow):
         return ((self.power + self.bonusPow) * atkPow) * self.dmgMult
 
+    # returns amount of time until actors turn
+    def timeTillTurn(self):
+        return self.nextTurnIn / self.speed
+    
 # Bane Class
 class Bane(object):
     
@@ -59,6 +62,7 @@ class Bane(object):
         self.ID = random.random()
         self.maxHealth = health
         self.speed = speed
+        self.nextTurnIn = 100.0
         self.power = power
         self.damageTaken = 0
         self.img = imageLocation
@@ -99,3 +103,7 @@ class Bane(object):
     # find attack damage for a given attack power
     def attack(self, atkPow):
         return ((self.power + self.bonusPow) * atkPow) * self.dmgMult
+    
+    # returns amount of time until actors turn
+    def timeTillTurn(self):
+        return self.nextTurnIn / self.speed

@@ -1,35 +1,36 @@
 #Receives combatants and manages who goes next
 import Actor
-class turnOrder(object):
+class TurnOrder(object):
     
     def __init__(self, spirits, banes):
-        #self.order = []
-        self.people = {}
+        self.order = []
+        self.actors = {}
         for spirit in spirits:
-            self.people[spirit.ID] = spirit
-            #self.order.append(spirit.ID)
+            self.actors[spirit.ID] = spirit
         for bane in banes:
-            self.people[bane.ID] = bane
-            #self.order.append(bane.ID)
+            self.actors[bane.ID] = bane
         
-#        while True:
-#            swapped = False
-#            for i in range(len(self.order) - 1):
-#                if self.people[self.order[i]].speed < self.people[self.order[i + 1]].speed:
-#                    swapped = True
-#                    temp = self.order[i]
-#                    self.order[i] = self.order[i + 1]
-#                    self.order[i + 1] = temp
-#            if not swapped:
-#                break
+        self.sort()
             
     # return next actor to go, 
-    # actors move to 1000 using their speed
-    # at 1000 or past, 
-    def next():
-        while True:
-            pass
+    # actors move to 0 using their speed
+    def next(self):
+        time = self.actors[self.order[0]].timeTillTurn()
+        for key, actor in self.actors.items():
+            actor.nextTurnIn -= time
+        
+        return self.actors[self.order[0]]
     
     # make a temp value to predict actor turn order
-    def order():
-        pass
+    def sort(self):
+        self.order = []
+        for key, actor in self.actors.items():
+            added = False
+            for i in range(len(self.order)):
+                if actor.timeTillTurn() < self.actors[self.order[i]].timeTillTurn():
+                    self.order.insert(i, key)
+                    added = True
+                    break
+            if not added:
+                self.order.append(key)
+    

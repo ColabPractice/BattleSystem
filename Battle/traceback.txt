@@ -1,26 +1,44 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While executing init code:
-  File "game/script.rpy", line 11, in script
-    image kines = im.Flip(im.Scale("assets/weakhearth.png", 150, 150), horizontal = True)
-  File "game/script.rpy", line 11, in <module>
-    image kines = im.Flip(im.Scale("assets/weakhearth.png", 150, 150), horizontal = True)
-Exception: im.Flip must be called with a true value for horizontal or vertical.
+While running game code:
+  File "game/script.rpy", line 36, in script call
+    call battle()
+  File "game/battle.rpy", line 158, in script
+    $ ui.interact()
+  File "game/battle.rpy", line 158, in <module>
+    $ ui.interact()
+  File "game/battle.rpy", line 104, in event
+    angle = atan2((y - 400), (x - 400)) * 180 / math.pi
+NameError: global name 'math' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 11, in script
-    image kines = im.Flip(im.Scale("assets/weakhearth.png", 150, 150), horizontal = True)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 846, in execute
-    img = renpy.python.py_eval_bytecode(self.code.bytecode)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1406, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script.rpy", line 11, in <module>
-    image kines = im.Flip(im.Scale("assets/weakhearth.png", 150, 150), horizontal = True)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 753, in __init__
-    raise Exception("im.Flip must be called with a true value for horizontal or vertical.")
-Exception: im.Flip must be called with a true value for horizontal or vertical.
+  File "game/script.rpy", line 36, in script call
+    call battle()
+  File "game/battle.rpy", line 158, in script
+    $ ui.interact()
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/battle.rpy", line 158, in <module>
+    $ ui.interact()
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ui.py", line 264, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2065, in interact
+    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2652, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "game/battle.rpy", line 104, in event
+    angle = atan2((y - 400), (x - 400)) * 180 / math.pi
+NameError: global name 'math' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512

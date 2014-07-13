@@ -2,6 +2,7 @@ init:
     image bg = "assets/trees.jpg"
     
     $ import Actor
+    $ import math
 
     #ATL Section
 #    transform shake(times):
@@ -59,11 +60,64 @@ init:
         
         boss = Position(xpos=1.0, xanchor=.95, ypos=.5, yanchor=.5)
 
-screen attack():
-    # TODO make it select an attack and a target after attack selected
-    key "K_SPACE" action Return("aaa")
-    
-    
+    python:
+        class Attack(renpy.Displayable):
+            # TODO make it select an attack and a target after attack selected
+            
+            def __init__(self):
+                renpy.Displayable.__init__(self)
+                
+                self.xpos = 200
+                self.ypos = 200
+                self.battleOver = None
+                
+                self.hover = False
+                self.button = Image("assets/selectRing/TopLeftCircle.png")
+                self.buttonHover = Image("assets/selectRing/TopLeftCircleHover.png")
+                
+            def render(self, width, height, st, at):
+
+                # The Render object we'll be drawing into.
+                r = renpy.Render(width, height)
+
+                pi = renpy.render(self.buttonHover if self.hover else self.button, 200, 200, st, at)
+                
+                r.blit(pi, (self.xpos, self.ypos))
+                
+                renpy.redraw(self, 0)
+                    
+                return r
+            
+            # TODO button clicking stuff
+            # Handles events.
+            def event(self, ev, x, y, st):
+                
+                import pygame
+                
+                # end battle on click, for now 
+                # TODO make a real ending thing
+                if ev.type == pygame.K_SPACE:
+                    self.battleOver = "yes"
+                    renpy.timeout(0)
+                
+                # Move mario around and shit
+                distance = (x - 400)**2 + (y - 400)**2
+                if distance >= 10000 and distance <= 40000:
+                    angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
+                    if angle > -180 and angle < -90:
+                        self.hover = True
+                    else:
+                        self.hover = False
+                else:
+                    self.hover = False
+                #self.xpos = x - 128
+                #self.ypos = y - 128
+
+                # Some kind of battle ending mechanic?
+                if self.battleOver:
+                    return self.battleOver
+                else:
+                    raise renpy.IgnoreEvent()
 
 label battle():
     
@@ -106,7 +160,8 @@ label battle():
 #            , Image('Mario-icon.png')
 #            , clicked = clicky)
     
-    call screen attack()
+    $ ui.add(Attack())
+    $ ui.interact()
     
     # TODO print who wins and stuff
     return _return
