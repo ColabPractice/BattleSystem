@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 104: invalid syntax
-                angle = atan2(y - 400), (x - 400)) * 180 / math.pi
-                                                  ^
+File "game/battle.rpy", line 119: invalid syntax
+                    self.turnOver = True:
+                                         ^
     
 
 Ren'Py Version: Ren'Py 6.17.6.512

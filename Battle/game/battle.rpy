@@ -69,18 +69,31 @@ init:
                 
                 self.xpos = 200
                 self.ypos = 200
-                self.battleOver = None
+                self.turnOver = False
                 
-                self.hover = False
-                self.button = Image("assets/selectRing/TopLeftCircle.png")
-                self.buttonHover = Image("assets/selectRing/TopLeftCircleHover.png")
-                
+                # 0 = normal button
+                # 1 = hover over button
+                # 2 = clicking button
+                self.button = [Image("assets/selectRing/TopLeftCircle.png"), 
+                    Image("assets/selectRing/TopLeftCircleHover.png"), 
+                    Image("assets/selectRing/TopLeft.png")]
+                self.buttonMode = 0
+                self.mouseDown = False
+            
+            # return if cursor is on button
+            def isOnButton(self, x, y, angle1, angle2):
+                distance = (x - 400)**2 + (y - 400)**2
+                if distance >= 10000 and distance <= 40000:
+                    angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
+                    return angle > angle1 and angle < angle2
+                            
+            # rendering cycle
             def render(self, width, height, st, at):
 
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
 
-                pi = renpy.render(self.buttonHover if self.hover else self.button, 200, 200, st, at)
+                pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
                 
                 r.blit(pi, (self.xpos, self.ypos))
                 
@@ -88,36 +101,53 @@ init:
                     
                 return r
             
-            # TODO button clicking stuff
             # Handles events.
             def event(self, ev, x, y, st):
                 
                 import pygame
                 
-                # end battle on click, for now 
+                # end battle on space, for now 
                 # TODO make a real ending thing
                 if ev.type == pygame.K_SPACE:
-                    self.battleOver = "yes"
-                    renpy.timeout(0)
+                    self.turnOver = True
                 
-                # Move mario around and shit
-                distance = (x - 400)**2 + (y - 400)**2
-                if distance >= 10000 and distance <= 40000:
-                    angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
-                    if angle > -180 and angle < -90:
-                        self.hover = True
-                    else:
-                        self.hover = False
+                # Release mouse, trigger button press
+                if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
+                    self.mouseDown = False
+                    if self.isOnButton(x, y, -180, -90):
+                        self.turnOver = True
+                    
+                
+                # Check cursor position for button hovering and clicking
+                if self.isOnButton(x, y, -180, -90):
+                    if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                        self.mouseDown = True
+                    if self.mouseDown: 
+                        self.buttonMode = 2
+                    else: 
+                        self.buttonMode = 1
                 else:
-                    self.hover = False
-                #self.xpos = x - 128
-                #self.ypos = y - 128
+                    self.buttonMode = 0
 
-                # Some kind of battle ending mechanic?
-                if self.battleOver:
-                    return self.battleOver
+                # end render cycle
+                if self.turnOver:
+                    return self.turnOver
                 else:
                     raise renpy.IgnoreEvent()
+                    
+    python:
+        # TODO finish up targeting class
+        class Target(renpy.Displayable):
+            def __init__(self):
+                renpy.Displayable.__init__(self)
+                
+                self.xpos = 200
+                self.ypos = 200
+                self.turnOver = False
+                
+                self.buttonMode = 0
+                self.mouseDown = False
+
 
 label battle():
     
