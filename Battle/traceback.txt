@@ -3,42 +3,30 @@
 While running game code:
   File "game/script.rpy", line 36, in script call
     call battle()
-  File "game/battle.rpy", line 183, in script
-    $ ui.interact()
-  File "game/battle.rpy", line 183, in <module>
-    $ ui.interact()
-  File "game/battle.rpy", line 136, in event
-    if self.battleOver:
-AttributeError: 'Attack' object has no attribute 'battleOver'
+  File "game/battle.rpy", line 248, in script
+    $ ui.add(Target())
+  File "game/battle.rpy", line 248, in <module>
+    $ ui.add(Target())
+  File "game/battle.rpy", line 153, in __init__
+    self.turnOver = none
+NameError: global name 'none' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "game/script.rpy", line 36, in script call
     call battle()
-  File "game/battle.rpy", line 183, in script
-    $ ui.interact()
+  File "game/battle.rpy", line 248, in script
+    $ ui.add(Target())
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/battle.rpy", line 183, in <module>
-    $ ui.interact()
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ui.py", line 264, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2065, in interact
-    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2652, in interact_core
-    rv = root_widget.event(ev, x, y, 0)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 774, in event
-    rv = i.event(ev, x - xo, y - yo, cst)
-  File "game/battle.rpy", line 136, in event
-    if self.battleOver:
-AttributeError: 'Attack' object has no attribute 'battleOver'
+  File "game/battle.rpy", line 248, in <module>
+    $ ui.add(Target())
+  File "game/battle.rpy", line 153, in __init__
+    self.turnOver = none
+NameError: global name 'none' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512

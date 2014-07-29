@@ -92,9 +92,8 @@ init:
 
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
-
+        
                 pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
-                
                 r.blit(pi, (self.xpos, self.ypos))
                 
                 renpy.redraw(self, 0)
@@ -105,11 +104,6 @@ init:
             def event(self, ev, x, y, st):
                 
                 import pygame
-                
-                # end battle on space, for now 
-                # TODO make a real ending thing
-                if ev.type == pygame.K_SPACE:
-                    self.turnOver = True
                 
                 # Release mouse, trigger button press
                 if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
@@ -141,13 +135,64 @@ init:
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
-                self.xpos = 200
-                self.ypos = 200
-                self.turnOver = False
+                self.arrow = Image("assets/x.png")
+                
+                self.bane1 = True
+                self.target = False
+                
+                self.bane1xpos = 810
+                self.bane1ypos = 380
+                
+                self.bane2xpos = 880
+                self.bane2ypos = 160
+                self.turnOver = None
                 
                 self.buttonMode = 0
                 self.mouseDown = False
+            
+            # return if cursor is in elliptical area
+            def isInArea(self, x, y, h, k, rx, ry):
+                return (( ((x - h)**2) / rx**2 ) + ( ((y - k)**2) / ry**2 )) <= 1
+                            
+            # rendering cycle
+            def render(self, width, height, st, at):
 
+                # The Render object we'll be drawing into.
+                r = renpy.Render(width, height)
+
+                if self.target:
+                    pi = renpy.render(self.arrow, 200, 200, st, at)
+                    r.blit(pi, (self.bane1xpos if self.bane1 else self.bane2xpos, 
+                        self.bane1ypos if self.bane1 else self.bane2ypos))
+                
+                renpy.redraw(self, 0)
+                    
+                return r
+            
+            # Handles events.
+            def event(self, ev, x, y, st):
+                
+                import pygame
+                
+                # Mouse is over a target
+                if self.isInArea(x, y, self.bane1xpos, self.bane1ypos, 50, 50):
+                    self.bane1 = True
+                    self.target = True
+                elif self.isInArea(x, y, self.bane2xpos, self.bane2ypos, 50, 50):
+                    self.bane1 = False
+                    self.target = True
+                else:
+                    self.target = False
+                
+                # Release mouse, trigger button press
+                if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
+                    self.turnOver = True
+
+                # end render cycle
+                if self.turnOver:
+                    return self.bane1
+                else:
+                    raise renpy.IgnoreEvent()
 
 label battle():
     
@@ -191,6 +236,9 @@ label battle():
 #            , clicked = clicky)
     
     $ ui.add(Attack())
+    $ ui.interact()
+    
+    $ ui.add(Target())
     $ ui.interact()
     
     # TODO print who wins and stuff
