@@ -151,6 +151,7 @@ init:
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
+<<<<<<< HEAD
                 self.arrow = Image("assets/x.png")
                 
                 self.bane1 = True
@@ -229,6 +230,7 @@ init:
                     return self.selected
                 else:
                     raise renpy.IgnoreEvent()
+=======
                 self.xpos = 200
                 self.ypos = 200
                 self.turnOver = False
@@ -236,6 +238,7 @@ init:
                 self.buttonMode = 0
                 self.mouseDown = False
 
+>>>>>>> parent of 0f9728e... Added targeting system
 
 label battle():
     
@@ -278,7 +281,7 @@ label battle():
 #            , Image('Mario-icon.png')
 #            , clicked = clicky)
     
-
+<<<<<<< HEAD
     python:
         noTarget = True
         while noTarget:
@@ -294,9 +297,10 @@ label battle():
                 noTarget = False
         
     return
-
+=======
     $ ui.add(Attack())
     $ ui.interact()
     
     # TODO print who wins and stuff
     return _return
+>>>>>>> parent of 0f9728e... Added targeting system
