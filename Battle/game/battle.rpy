@@ -95,8 +95,9 @@ init:
 
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
-        
+
                 pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
+                
                 r.blit(pi, (self.xpos, self.ypos))
                 
                 text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
@@ -111,6 +112,11 @@ init:
             def event(self, ev, x, y, st):
                 
                 import pygame
+                
+                # end battle on space, for now 
+                # TODO make a real ending thing
+                if ev.type == pygame.K_SPACE:
+                    self.turnOver = True
                 
                 # Release mouse, trigger button press
                 if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
@@ -145,6 +151,7 @@ init:
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
+<<<<<<< HEAD
                 self.arrow = Image("assets/x.png")
                 
                 self.bane1 = True
@@ -223,6 +230,15 @@ init:
                     return self.selected
                 else:
                     raise renpy.IgnoreEvent()
+=======
+                self.xpos = 200
+                self.ypos = 200
+                self.turnOver = False
+                
+                self.buttonMode = 0
+                self.mouseDown = False
+
+>>>>>>> parent of 0f9728e... Added targeting system
 
 label battle():
     
@@ -265,6 +281,7 @@ label battle():
 #            , Image('Mario-icon.png')
 #            , clicked = clicky)
     
+<<<<<<< HEAD
     python:
         noTarget = True
         while noTarget:
@@ -280,3 +297,10 @@ label battle():
                 noTarget = False
         
     return
+=======
+    $ ui.add(Attack())
+    $ ui.interact()
+    
+    # TODO print who wins and stuff
+    return _return
+>>>>>>> parent of 0f9728e... Added targeting system

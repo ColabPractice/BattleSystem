@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 Mon Sep 08 19:39:43 2014
+=======
+Thu Jul 24 17:14:17 2014
+>>>>>>> parent of 0f9728e... Added targeting system
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512
  
 
 
 Windowed mode.
+<<<<<<< HEAD
 Screen sizes: virtual=(800, 600) physical=(1025, 769)
+=======
+Screen sizes: virtual=(1280, 720) physical=(1139, 640)
+>>>>>>> parent of 0f9728e... Added targeting system
 Vendor: 'NVIDIA Corporation'
 Renderer: 'GeForce GTX 770/PCIe/SSE2'
 Version: '4.4.0'
@@ -331,3 +339,14 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
+<<<<<<< HEAD
+=======
+Performance test:
+- Target is 5 frames in 0.333333333333 seconds.
+- Frame drawn at 0.000000 seconds.
+- Frame drawn at 0.003000 seconds.
+- Frame drawn at 0.019000 seconds.
+- Frame drawn at 0.036000 seconds.
+- Frame drawn at 0.052000 seconds.
+- 0.052000 seconds to render 5 frames.
+>>>>>>> parent of 0f9728e... Added targeting system
