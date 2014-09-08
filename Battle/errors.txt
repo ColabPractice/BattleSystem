@@ -2,9 +2,8 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 119: invalid syntax
-                    self.turnOver = True:
-                                         ^
-    
+File "game/script.rpy", line 3: expected statement.
+    import _init
+                ^
 
 Ren'Py Version: Ren'Py 6.17.6.512

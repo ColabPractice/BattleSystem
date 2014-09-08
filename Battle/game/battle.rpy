@@ -1,8 +1,8 @@
 init:
-    image bg = "assets/trees.jpg"
     
-    $ import Actor
-    $ import math
+    python:
+        import Actor
+        import math
 
     #ATL Section
 #    transform shake(times):
@@ -62,13 +62,16 @@ init:
 
     python:
         class Attack(renpy.Displayable):
-            # TODO make it select an attack and a target after attack selected
+            # TODO select an attack to work with the real game
             
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
                 self.xpos = 200
                 self.ypos = 200
+                
+                self.x = 0
+                self.y = 0
                 self.turnOver = False
                 
                 # 0 = normal button
@@ -96,6 +99,10 @@ init:
                 pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
                 r.blit(pi, (self.xpos, self.ypos))
                 
+                text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
+                cursor = renpy.render(text, 800, 600, st, at)
+                r.blit(cursor, (self.x, self.y))
+                
                 renpy.redraw(self, 0)
                     
                 return r
@@ -111,26 +118,29 @@ init:
                     if self.isOnButton(x, y, -180, -90):
                         self.turnOver = True
                     
-                
-                # Check cursor position for button hovering and clicking
-                if self.isOnButton(x, y, -180, -90):
-                    if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
-                        self.mouseDown = True
-                    if self.mouseDown: 
-                        self.buttonMode = 2
-                    else: 
-                        self.buttonMode = 1
-                else:
-                    self.buttonMode = 0
+                # Mouse move
+                if ev.type == pygame.MOUSEMOTION:
+                    self.x = x
+                    self.y = y
+                    # position over button
+                    if self.isOnButton(x, y, -180, -90):
+                        if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                            self.mouseDown = True
+                        if self.mouseDown: 
+                            self.buttonMode = 2
+                        else: 
+                            self.buttonMode = 1
+                    else:
+                        self.buttonMode = 0
 
-                # end render cycle
-                if self.turnOver:
-                    return self.turnOver
-                else:
-                    raise renpy.IgnoreEvent()
+                    # end render cycle
+                    if self.turnOver:
+                        return self.turnOver
+                    else:
+                        raise renpy.IgnoreEvent()
                     
     python:
-        # TODO finish up targeting class
+        # TODO basic functions done, make work with real game
         class Target(renpy.Displayable):
             def __init__(self):
                 renpy.Displayable.__init__(self)
@@ -138,7 +148,11 @@ init:
                 self.arrow = Image("assets/x.png")
                 
                 self.bane1 = True
+                self.selected = None
                 self.target = False
+                
+                self.x = 0
+                self.y = 0
                 
                 self.bane1xpos = 810
                 self.bane1ypos = 380
@@ -165,6 +179,10 @@ init:
                     r.blit(pi, (self.bane1xpos if self.bane1 else self.bane2xpos, 
                         self.bane1ypos if self.bane1 else self.bane2ypos))
                 
+                text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
+                cursor = renpy.render(text, 800, 600, st, at)
+                r.blit(cursor, (self.x, self.y))
+                
                 renpy.redraw(self, 0)
                     
                 return r
@@ -174,35 +192,47 @@ init:
                 
                 import pygame
                 
-                # Mouse is over a target
-                if self.isInArea(x, y, self.bane1xpos, self.bane1ypos, 50, 50):
-                    self.bane1 = True
-                    self.target = True
-                elif self.isInArea(x, y, self.bane2xpos, self.bane2ypos, 50, 50):
-                    self.bane1 = False
-                    self.target = True
-                else:
-                    self.target = False
+                # Cancel attack
+                if ev.type == pygame.KEYDOWN:
+                    print("key pressed")
+                    if ev.key == pygame.K_SPACE:
+                        print("space pressed")
+                        return False
+                
+                # Mouse move
+                if ev.type == pygame.MOUSEMOTION:
+                    self.x = x
+                    self.y = y
+                    # over a target
+                    if self.isInArea(x, y, self.bane1xpos, self.bane1ypos, 50, 50):
+                        self.bane1 = True
+                        self.target = True
+                        self.selected = "bane1"
+                    elif self.isInArea(x, y, self.bane2xpos, self.bane2ypos, 50, 50):
+                        self.bane1 = False
+                        self.target = True
+                        self.selected = "bane2"
                 
                 # Release mouse, trigger button press
                 if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
-                    self.turnOver = True
+                    if self.target:
+                        self.turnOver = True
 
                 # end render cycle
                 if self.turnOver:
-                    return self.bane1
+                    return self.selected
                 else:
                     raise renpy.IgnoreEvent()
 
 label battle():
     
     window hide None
-    scene bg with Dissolve(1)
+    scene treeBattle with Dissolve(1)
     
     $ renpy.show("vesto", at_list = [vestoSpot])
-    $ renpy.show(cPers.img, at_list = [spirit1Spot])
-    $ renpy.show(cKines.img, at_list = [spirit2Spot])
-    $ renpy.show(cLogi.img, at_list = [spirit3Spot])
+    $ renpy.show(pers.img, at_list = [spirit1Spot])
+    $ renpy.show(kines.img, at_list = [spirit2Spot])
+    $ renpy.show(logi.img, at_list = [spirit3Spot])
     
     #show spirit1 at spirit1Spot
     #show spirit2 at spirit2Spot 
@@ -212,8 +242,8 @@ label battle():
     $ bossBattle = 1
     if bossBattle:
         show bane1 at bossBane1Spot
-        show bane2 at bossBane2Spot 
-        show bane3 at bossBane3Spot 
+        #show bane2 at bossBane2Spot 
+        #show bane3 at bossBane3Spot 
         with Dissolve(.5)
         
         show boss at boss with hpunch
@@ -235,11 +265,18 @@ label battle():
 #            , Image('Mario-icon.png')
 #            , clicked = clicky)
     
-    $ ui.add(Attack())
-    $ ui.interact()
-    
-    $ ui.add(Target())
-    $ ui.interact()
-    
-    # TODO print who wins and stuff
-    return _return
+    python:
+        noTarget = True
+        while noTarget:
+            ui.add(Attack())
+            attack = ui.interact()
+            
+            ui.add(Target())
+            target = ui.interact()
+            
+            print(target)
+            
+            if target:
+                noTarget = False
+        
+    return

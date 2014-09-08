@@ -370,6 +370,8 @@ init python:
     build.classify('game/**.ogg', 'bgm')
     build.classify('game/**.wav', 'sounds')
     build.classify('game/**.rpy', 'scripts')
+    build.classify('game/**.py', 'scripts')
+    build.classify('game/**.pyo', 'scripts')
 
     ## Files matching documentation patterns are duplicated in a mac app
     ## build, so they appear in both the app and the zip file.
