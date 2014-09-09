@@ -1,59 +1,59 @@
-﻿$ import Actor
-# Load all assets into game and characters
+﻿init:
+    $ import Actor
+    # Load all assets into game and characters
+    ####### Scene Images #######
 
-####### Scene Images #######
+    image office = "assets/office.png"
 
-image office = "assets/office.png"
+    ####### Character Images #######
 
-####### Character Images #######
+    image vesto = "assets/vesto.png"
+    image pers = "assets/pers_battle.png"
+    image logi = "assets/logi_battle.png"
+    image kines = "assets/kines_battle.png"
 
-image vesto = "assets/vesto.png"
-image pers = "assets/pers_battle.png"
-image logi = "assets/logi_battle.png"
-image kines = "assets/kines_battle.png"
+    image smallBane = "assets/bane_shitling.png"
+    image boss = "assets/bane_boss.png"
 
-image smallBane = "assets/bane_shitling.png"
-image boss = "assets/bane_boss.png"
-
-####### Sprites #######
-
-
-
-####### Music #######
+    ####### Sprites #######
 
 
 
-####### Sounds #######
+    ####### Music #######
 
 
 
-####### Misc. Images #######
+    ####### Sounds #######
 
 
 
-####### Characters #######
+    ####### Misc. Images #######
 
-define v = Character('Vesto')
-define p = Character('Pers')
-define l = Character('Logi')
-define k = Character('Kines')
 
-####### Actor Objects #######
 
-python:
-    perss = Actor.Spirit('Pers', 'pers') # speed = 10
-    logi = Actor.Spirit('Logi', 'logi', speed = 13)
-    kines = Actor.Spirit('Kines', 'kines', speed = 20, power = 15)
+    ####### Characters #######
 
-####### Bane Objects #######
+    define v = Character('Vesto')
+    define p = Character('Pers')
+    define l = Character('Logi')
+    define k = Character('Kines')
 
-python:
-    bane = Actor.Bane('bob', 'img', speed = 7)
-    bob = Actor.Bane('jeff', 'img', speed = 11)
+    ####### Actor Objects #######
 
-####### Key Map Changes #######
+    python:
+        pers = Actor.Spirit('Pers', 'pers') # speed = 10
+        logi = Actor.Spirit('Logi', 'logi', speed = 13)
+        kines = Actor.Spirit('Kines', 'kines', speed = 20, power = 15)
 
-python:
-    #config.keymap['dismiss'].remove('K_SPACE')
-    #config.keymap['hide_windows'].append('K_SPACE')
-    pass
+    ####### Bane Objects #######
+
+    python:
+        bane = Actor.Bane('bob', 'smallBane', speed = 7)
+        bob = Actor.Bane('jeff', 'boss', speed = 11)
+
+    ####### Key Map Changes #######
+
+    python:
+        #config.keymap['dismiss'].remove('K_SPACE')
+        #config.keymap['hide_windows'].append('K_SPACE')
+        pass

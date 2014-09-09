@@ -27,19 +27,19 @@ init:
     
     python:
         
-        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
-        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
-        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
         
-        renpy.image("bane1", im.Scale("assets/weakhearth.png", 150, 150))
-        renpy.image("bane2", im.Scale("assets/weakhearth.png", 150, 150))
-        renpy.image("bane3", im.Scale("assets/weakhearth.png", 150, 150))
-        renpy.image("bane4", im.Scale("assets/weakhearth.png", 150, 150))
-        renpy.image("bane5", im.Scale("assets/weakhearth.png", 150, 150))
+#        renpy.image("bane1", im.Scale("assets/weakhearth.png", 150, 150))
+#        renpy.image("bane2", im.Scale("assets/weakhearth.png", 150, 150))
+#        renpy.image("bane3", im.Scale("assets/weakhearth.png", 150, 150))
+#        renpy.image("bane4", im.Scale("assets/weakhearth.png", 150, 150))
+#        renpy.image("bane5", im.Scale("assets/weakhearth.png", 150, 150))
         
-        renpy.image("boss", im.Scale("assets/ShadowBoss.png", 400, 600))
+#        renpy.image("boss", im.Scale("assets/ShadowBoss.png", 400, 600))
         
-        renpy.image("vesto", im.Scale("assets/cVesto.png", 230, 300))
+#        renpy.image("vesto", im.Scale("assets/vesto.png", 230, 300))
 
         # TODO temp positions done, tweak them after final images are done
         vestoSpot = Position(xpos=.01, xanchor=.01, ypos=.5, yanchor=.5)

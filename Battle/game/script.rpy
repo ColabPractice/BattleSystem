@@ -1,14 +1,11 @@
 ﻿# Initilization info in _init.rpy file
 
-import _init
-
 # The game starts here.
 label start:
     
     scene office
     
-    $ print(pers.img)
-    $ renpy.show(pers.img) #THIS WORKS OMFG
+    $ renpy.show(pers.img)
     
     "show pers"
     
