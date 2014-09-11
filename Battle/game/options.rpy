@@ -318,7 +318,7 @@ init python:
     ## The name that's used for directories and archive files. For example, if
     ## this is 'mygame-1.0', the windows distribution will be in the
     ## directory 'mygame-1.0-win', in the 'mygame-1.0-win.zip' file.
-    build.directory_name = "House Guard-1.0"
+    build.directory_name = "House_Guard-1.0"
 
     ## The name that's uses for executables - the program that users will run
     ## to start the game. For example, if this is 'mygame', then on Windows,
@@ -362,14 +362,22 @@ init python:
     build.classify('**/.**', None)
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
+    build.classify('**.xcf', None)
 
     ## To archive files, classify them as 'archive'.
+
+    build.archive('images', 'all')
+    build.archive('scripts', 'all')
+    build.archive('sounds', 'all')
+    build.archive('bgm', 'all')
 
     build.classify('game/**.png', 'images')
     build.classify('game/**.jpg', 'images')
     build.classify('game/**.ogg', 'bgm')
     build.classify('game/**.wav', 'sounds')
     build.classify('game/**.rpy', 'scripts')
+    build.classify('game/**.rpyc', 'scripts')
+    build.classify('game/**.rpyb', 'scripts')
     build.classify('game/**.py', 'scripts')
     build.classify('game/**.pyo', 'scripts')
 
