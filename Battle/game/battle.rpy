@@ -3,28 +3,7 @@ init:
     python:
         import Actor
         import math
-
-    #ATL Section
-#    transform shake(times):
-#        parallel:
-#            im.Scale("assets/ShadowBoss.png", 400, 600)
         
-#        parallel:
-#            linear .01 xoffset (10)
-#            linear .01 xoffset (-10)
-#            linear .01 xoffset (10)
-#            linear .01 xoffset (-10)
-#            linear .01 xoffset (0)
-#            repeat times
-            
-        
-    #show InsertNameHere at shake(InsertHowManyTimes)
-    
-    python:
-        cPers = Actor.Spirit("Pers", "pers")
-        cKines = Actor.Spirit("Kines", "kines", speed = 20, power = 15)
-        cLogi = Actor.Spirit("Logi", "logi", speed = 5, power = 40)
-    
     python:
         
 #        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
@@ -42,23 +21,23 @@ init:
 #        renpy.image("vesto", im.Scale("assets/vesto.png", 230, 300))
 
         # TODO temp positions done, tweak them after final images are done
-        vestoSpot = Position(xpos=.01, xanchor=.01, ypos=.5, yanchor=.5)
+        vestoSpot = Position(xalign=.01, yalign=.5)
         
-        spirit1Spot = Position(xpos=.3, xanchor=.3, ypos=.5, yanchor=.5)
-        spirit2Spot = Position(xpos=.25, xanchor=.25, ypos=.1, yanchor=.1)
-        spirit3Spot = Position(xpos=.25, xanchor=.25, ypos=.9, yanchor=.9)
+        spirit1Spot = Position(xalign=.3, yalign=.5)
+        spirit2Spot = Position(xalign=.25, yalign=.1)
+        spirit3Spot = Position(xalign=.25, yalign=.9)
         
-        bane1Spot = Position(xpos=.7, xanchor=.7, ypos=.5, yanchor=.5)
-        bane2Spot = Position(xpos=.7, xanchor=.7, ypos=.05, yanchor=.05)
-        bane3Spot = Position(xpos=.7, xanchor=.7, ypos=.95, yanchor=.95)
-        bane4Spot = Position(xpos=.9, xanchor=.9, ypos=.7, yanchor=.7)
-        bane5Spot = Position(xpos=.9, xanchor=.9, ypos=.3, yanchor=.3)
+        bane1Spot = Position(xalign=.7, yalign=.5)
+        bane2Spot = Position(xalign=.7, yalign=.05)
+        bane3Spot = Position(xalign=.7, yalign=.95)
+        bane4Spot = Position(xalign=.9, yalign=.7)
+        bane5Spot = Position(xalign=.9, yalign=.3)
         
-        bossBane1Spot = Position(xpos=.65, xanchor=.65, ypos=.5, yanchor=.5)
-        bossBane2Spot = Position(xpos=.7, xanchor=.7, ypos=.1, yanchor=.1)
-        bossBane3Spot = Position(xpos=.7, xanchor=.7, ypos=.9, yanchor=.9)
+        bossBane1Spot = Position(xalign=.65, yalign=.5)
+        bossBane2Spot = Position(xalign=.7, yalign=.1)
+        bossBane3Spot = Position(xalign=.7, yalign=.9)
         
-        boss = Position(xpos=1.0, xanchor=.95, ypos=.5, yanchor=.5)
+        boss = Position(xalign=.95, yalign=.5)
 
     python:
         class Attack(renpy.Displayable):
@@ -72,7 +51,9 @@ init:
                 
                 self.x = 0
                 self.y = 0
+                
                 self.turnOver = False
+                self.skill = 'attack'
                 
                 # 0 = normal button
                 # 1 = hover over button
@@ -141,7 +122,7 @@ init:
 
                     # end render cycle
                     if self.turnOver:
-                        return self.turnOver
+                        return self.skill
                     else:
                         raise renpy.IgnoreEvent()
                     
@@ -284,19 +265,15 @@ label battle():
         while noTarget:
             ui.add(Attack())
             attack = ui.interact()
+            _return = attack
             
             ui.add(Target())
             target = ui.interact()
+            _return += target
             
             print(target)
             
             if target:
                 noTarget = False
-        
-    return
-
-    $ ui.add(Attack())
-    $ ui.interact()
-    
-    # TODO print who wins and stuff
+                
     return _return

@@ -3,72 +3,26 @@
 While running game code:
   File "game/script.rpy", line 12, in script call
     call battle()
-  File "game/battle.rpy", line 260, in script
-    with Dissolve(.5)
-IOError: Couldn't find file 'assets/weakhearth.png'.
+  File "game/battle.rpy", line 263, in script
+    python:
+  File "game/battle.rpy", line 272, in <module>
+    _return += target
+TypeError: unsupported operand type(s) for +=: 'bool' and 'str'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "game/script.rpy", line 12, in script call
     call battle()
-  File "game/battle.rpy", line 260, in script
-    with Dissolve(.5)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 1187, in execute
-    renpy.exports.with_statement(trans, paired)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\exports.py", line 1155, in with_statement
-    return renpy.game.interface.do_with(trans, paired, clear=clear)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 1726, in do_with
-    clear=clear)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2065, in interact
-    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2390, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 1591, in draw_screen
-    renpy.config.screen_height,
-  File "render.pyx", line 362, in renpy.display.render.render_screen (gen\renpy.display.render.c:5303)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\transition.py", line 362, in render
-    top = render(self.new_widget, width, height, st, at)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "accelerator.pyx", line 109, in renpy.display.accelerator.transform_render (gen\renpy.display.accelerator.c:1654)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 268, in render
-    surf = render(self.child, width, height, st, at)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\image.py", line 164, in render
-    return wrap_render(self.target, width, height, st, at)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\image.py", line 54, in wrap_render
-    rend = render(child, w, h, st, at)
-  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
-  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 465, in render
-    im = cache.get(self)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 198, in get
-    surf = image.load()
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 656, in load
-    child = cache.get(self.image)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 198, in get
-    surf = image.load()
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\im.py", line 509, in load
-    surf = renpy.display.pgrender.load_image(renpy.loader.load(self.filename), self.filename)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\loader.py", line 431, in load
-    raise IOError("Couldn't find file '%s'." % name)
-IOError: Couldn't find file 'assets/weakhearth.png'.
+  File "game/battle.rpy", line 263, in script
+    python:
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
+    exec bytecode in globals, locals
+  File "game/battle.rpy", line 272, in <module>
+    _return += target
+TypeError: unsupported operand type(s) for +=: 'bool' and 'str'
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.6.512
