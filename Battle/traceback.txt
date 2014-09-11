@@ -1,29 +1,27 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 12, in script call
-    call battle()
-  File "game/battle.rpy", line 263, in script
-    python:
-  File "game/battle.rpy", line 272, in <module>
-    _return += target
-TypeError: unsupported operand type(s) for +=: 'bool' and 'str'
+  File "game/script.rpy", line 8, in script
+    $ renpy.show(im.Scale(pers.img, 400, 600))
+  File "game/script.rpy", line 8, in <module>
+    $ renpy.show(im.Scale(pers.img, 400, 600))
+Exception: Images may only be declared inside init blocks.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 12, in script call
-    call battle()
-  File "game/battle.rpy", line 263, in script
-    python:
+  File "game/script.rpy", line 8, in script
+    $ renpy.show(im.Scale(pers.img, 400, 600))
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/battle.rpy", line 272, in <module>
-    _return += target
-TypeError: unsupported operand type(s) for +=: 'bool' and 'str'
+  File "game/script.rpy", line 8, in <module>
+    $ renpy.show(im.Scale(pers.img, 400, 600))
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\exports.py", line 234, in image
+    raise Exception("Images may only be declared inside init blocks.")
+Exception: Images may only be declared inside init blocks.
 
 Windows-7-6.1.7601-SP1
-Ren'Py 6.17.6.512
+Ren'Py 6.17.7.521
 House Guard 0.0

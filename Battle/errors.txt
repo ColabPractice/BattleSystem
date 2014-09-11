@@ -2,8 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 3: expected statement.
-    import _init
-                ^
+File "game/script.rpy", line 8: is not terminated with a newline. (Check strings and parenthesis.)
+        $ renpy.show(renpy.image('small_pers', pers.img)
 
-Ren'Py Version: Ren'Py 6.17.6.512
+Ren'Py Version: Ren'Py 6.17.7.521

@@ -5,9 +5,11 @@ label start:
     
     scene office
     
-    $ renpy.show(pers.img)
+    show per battle
+    "show per battle"
     
-    "show pers"
+    show per battlesmall mad
+    "show per battlesmall mad"
     
     call battle()
     scene office with Dissolve(1)

@@ -1,23 +1,43 @@
 ﻿init:
     $ import Actor
+    $ from string import Template
+    
     # Load all assets into game and characters
     ####### Scene Images #######
 
     image office = "assets/office.png"
 
     ####### Character Images #######
-
-    image vesto = "assets/vesto.png"
-    image vesto battle = "assets/vesto.png"
     
-    image pers = "assets/pers_battle.png"
-    image pers battle = "assets/pers_battle.png"
+    python:
+        vesto_path = Template('assets/vesto$expression.png')
+        renpy.image('vesto', vesto_path.substitute(expression = ''))
+        renpy.image('vesto battle', vesto_path.substitute(expression = '_battle'))
+        renpy.image('vesto battle_s', vesto_path.substitute(expression = '_battle_s'))
+        
+        pers_path = Template('assets/pers$expression.png')
+        renpy.image('pers', pers_path.substitute(expression = ''))
+        renpy.image('pers battle', pers_path.substitute(expression = '_battle'))
+        renpy.image('pers battle_s', pers_path.substitute(expression = '_battle_s'))
+        
+        logi_path = Template('assets/logi$expression.png')
+        renpy.image('logi', logi_path.substitute(expression = ''))
+        renpy.image('logi battle', logi_path.substitute(expression = '_battle'))
+        renpy.image('logi battle_s', logi_path.substitute(expression = '_battle_s'))
+        
+        kines_path = Template('assets/kines$expression.png')
+        renpy.image('kines', kines_path.substitute(expression = ''))
+        renpy.image('kines battle', kines_path.substitute(expression = '_battle'))
+        renpy.image('kines battle_s', kines_path.substitute(expression = '_battle_s'))
+            
+#    image pers = "assets/pers_battle.png"
+#    image pers battle = "assets/pers_battle.png"
     
-    image logi = "assets/logi_battle.png"
-    image logi battle = "assets/logi_battle.png"
+#    image logi = "assets/logi_battle.png"
+#    image logi battle = "assets/logi_battle.png"
     
-    image kines = "assets/kines_battle.png"
-    image kines battle = "assets/kines_battle.png"
+#    image kines = "assets/kines_battle.png"
+#    image kines battle = "assets/kines_battle.png"
 
     image smallBane = "assets/bane_shitling.png"
     image boss = "assets/bane_boss.png"
@@ -48,15 +68,15 @@
     ####### Actor Objects #######
 
     python:
-        pers = Actor.Spirit('Pers', 'pers battle') # speed = 10
-        logi = Actor.Spirit('Logi', 'logi battle', speed = 13)
-        kines = Actor.Spirit('Kines', 'kines battle', speed = 20, power = 15)
+        pers = Actor.Spirit('Pers', 'pers smallbattle') # speed = 10
+        logi = Actor.Spirit('Logi', 'logi battlesmall', speed = 13)
+        kines = Actor.Spirit('Kines', 'kines battlesmall', speed = 20, power = 15)
 
     ####### Bane Objects #######
 
     python:
-        bane = Actor.Bane('bob', 'smallBane', speed = 7)
-        bob = Actor.Bane('jeff', 'boss', speed = 11)
+        bane = Actor.Bane('bob', 'bane_shitling', speed = 7)
+        bob = Actor.Bane('jeff', 'bane_boss', speed = 11)
 
     ####### Key Map Changes #######
 

@@ -1,14 +1,11 @@
 init:
     
     python:
-        import Actor
         import math
-        
-    python:
-        
-#        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
-#        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
-#        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
+
+        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
+        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
+        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
         
 #        renpy.image("bane1", im.Scale("assets/weakhearth.png", 150, 150))
 #        renpy.image("bane2", im.Scale("assets/weakhearth.png", 150, 150))
@@ -221,8 +218,7 @@ init:
 label battle():
     
     window hide None
-    scene treeBattle with Dissolve(1)
-    
+
     $ renpy.show("vesto", at_list = [vestoSpot])
     $ renpy.show(pers.img, at_list = [spirit1Spot])
     $ renpy.show(kines.img, at_list = [spirit2Spot])
@@ -235,7 +231,7 @@ label battle():
     
     $ bossBattle = 1
     if bossBattle:
-        show bane1 at bossBane1Spot
+        show smallBane at bossBane1Spot
         #show bane2 at bossBane2Spot 
         #show bane3 at bossBane3Spot 
         with Dissolve(.5)
