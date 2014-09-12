@@ -1,6 +1,8 @@
 import Actor
 import TurnOrder
 
+vesto = Actor.Actor('vesto', 'img')
+
 pers = Actor.Spirit('pers', 'img') # speed = 10
 logi = Actor.Spirit('logi', 'img', speed = 20)
 

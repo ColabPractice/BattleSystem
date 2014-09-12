@@ -29,15 +29,6 @@
         renpy.image('kines', kines_path.substitute(expression = ''))
         renpy.image('kines battle', kines_path.substitute(expression = '_battle'))
         renpy.image('kines battle_s', kines_path.substitute(expression = '_battle_s'))
-            
-#    image pers = "assets/pers_battle.png"
-#    image pers battle = "assets/pers_battle.png"
-    
-#    image logi = "assets/logi_battle.png"
-#    image logi battle = "assets/logi_battle.png"
-    
-#    image kines = "assets/kines_battle.png"
-#    image kines battle = "assets/kines_battle.png"
 
     image smallBane = "assets/bane_shitling.png"
     image boss = "assets/bane_boss.png"
@@ -65,12 +56,21 @@
     define l = Character('Logi')
     define k = Character('Kines')
 
+    ####### Variables #######
+    
+    python:
+        party1 = None
+        party2 = None
+        party3 = None
+        
+    
     ####### Actor Objects #######
 
     python:
-        pers = Actor.Spirit('Pers', 'pers smallbattle') # speed = 10
-        logi = Actor.Spirit('Logi', 'logi battlesmall', speed = 13)
-        kines = Actor.Spirit('Kines', 'kines battlesmall', speed = 20, power = 15)
+        vesto = Actor.Actor('Vesto', 'vesto battle')
+        pers = Actor.Spirit('Pers', 'pers battle_s') # speed = 10
+        logi = Actor.Spirit('Logi', 'logi battle_s', speed = 13)
+        kines = Actor.Spirit('Kines', 'kines battle_s', speed = 20, power = 15)
 
     ####### Bane Objects #######
 

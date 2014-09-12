@@ -5,12 +5,14 @@ label start:
     
     scene office
     
-    show per battle
+    show pers battle
     "show per battle"
+
+    $ party1 = pers
+    $ party2 = logi
+    $ party3 = kines
     
-    show per battlesmall mad
-    "show per battlesmall mad"
-    
+    scene
     call battle()
     scene office with Dissolve(1)
     

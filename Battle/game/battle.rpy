@@ -3,9 +3,9 @@ init:
     python:
         import math
 
-        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
-        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
-        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
+#        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
         
 #        renpy.image("bane1", im.Scale("assets/weakhearth.png", 150, 150))
 #        renpy.image("bane2", im.Scale("assets/weakhearth.png", 150, 150))
@@ -178,10 +178,10 @@ init:
                 
                 # Cancel attack
                 if ev.type == pygame.KEYDOWN:
-                    print("key pressed")
+                    #print("key pressed")
                     if ev.key == pygame.K_SPACE:
-                        print("space pressed")
-                        return False
+                        #print("space pressed")
+                        return "cancel"
                 
                 # Mouse move
                 if ev.type == pygame.MOUSEMOTION:
@@ -214,15 +214,19 @@ init:
                 self.buttonMode = 0
                 self.mouseDown = False
 
-
-label battle():
+label battle(leader = vesto, spirit1 = party1, spirit2 = party2, spirit3 = party3):
     
     window hide None
 
-    $ renpy.show("vesto", at_list = [vestoSpot])
-    $ renpy.show(pers.img, at_list = [spirit1Spot])
-    $ renpy.show(kines.img, at_list = [spirit2Spot])
-    $ renpy.show(logi.img, at_list = [spirit3Spot])
+    python:
+        if leader:
+            renpy.show(leader.img, at_list = [vestoSpot])
+        if spirit1:
+            renpy.show(spirit1.img, at_list = [spirit1Spot])
+        if spirit2:
+            renpy.show(spirit2.img, at_list = [spirit2Spot])
+        if spirit3:
+            renpy.show(spirit3.img, at_list = [spirit3Spot])
     
     #show spirit1 at spirit1Spot
     #show spirit2 at spirit2Spot 
@@ -266,8 +270,6 @@ label battle():
             ui.add(Target())
             target = ui.interact()
             _return += target
-            
-            print(target)
             
             if target:
                 noTarget = False
