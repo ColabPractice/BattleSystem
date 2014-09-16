@@ -8,9 +8,9 @@ label start:
     show pers battle
     "show per battle"
 
-    $ party1 = pers
-    $ party2 = logi
-    $ party3 = kines
+    $ party[0] = pers
+    $ party[1] = logi
+    $ party[2] = kines
     
     scene
     call battle()

@@ -63,7 +63,7 @@ class Spirit(Actor):
         return self.nextTurnIn / self.speed
     
 # Bane Class
-class Bane():
+class Bane(Actor):
     
     def __init__(self, name, image, health = 100, speed = 10, power = 20):
         Actor.__init__(self, name, image, health)

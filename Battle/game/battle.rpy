@@ -18,11 +18,9 @@ init:
 #        renpy.image("vesto", im.Scale("assets/vesto.png", 230, 300))
 
         # TODO temp positions done, tweak them after final images are done
-        vestoSpot = Position(xalign=.01, yalign=.5)
+        leaderSpot = Position(xalign=.01, yalign=.5)
         
-        spirit1Spot = Position(xalign=.3, yalign=.5)
-        spirit2Spot = Position(xalign=.25, yalign=.1)
-        spirit3Spot = Position(xalign=.25, yalign=.9)
+        spiritSpot = [Position(xalign=.3, yalign=.5), Position(xalign=.25, yalign=.1), Position(xalign=.25, yalign=.9)]
         
         bane1Spot = Position(xalign=.7, yalign=.5)
         bane2Spot = Position(xalign=.7, yalign=.05)
@@ -73,14 +71,21 @@ init:
 
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
-
-                pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
                 
+                # button
+                pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
                 r.blit(pi, (self.xpos, self.ypos))
                 
+                # cursor text, display coords
                 text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
                 cursor = renpy.render(text, 800, 600, st, at)
                 r.blit(cursor, (self.x, self.y))
+                
+                # display outlined text on button, centered
+                spirit1Skill1Text = Text(_("PUNCH"), xanchor = 0.5, font = 'impact.ttf',
+                    antialias = True, size = 24, color = "#ffffff", outlines = [(4, "#000000", 0, 0)])
+                spirit1Skill1 = renpy.render(spirit1Skill1Text, 500, 500, st, at)
+                r.blit(spirit1Skill1, (267 - spirit1Skill1.width / 2, 264))
                 
                 renpy.redraw(self, 0)
                     
@@ -181,7 +186,7 @@ init:
                     #print("key pressed")
                     if ev.key == pygame.K_SPACE:
                         #print("space pressed")
-                        return "cancel"
+                        return False
                 
                 # Mouse move
                 if ev.type == pygame.MOUSEMOTION:
@@ -214,19 +219,19 @@ init:
                 self.buttonMode = 0
                 self.mouseDown = False
 
-label battle(leader = vesto, spirit1 = party1, spirit2 = party2, spirit3 = party3):
+label battle(leader = vesto, spirit = party):
     
     window hide None
 
     python:
         if leader:
-            renpy.show(leader.img, at_list = [vestoSpot])
-        if spirit1:
-            renpy.show(spirit1.img, at_list = [spirit1Spot])
-        if spirit2:
-            renpy.show(spirit2.img, at_list = [spirit2Spot])
-        if spirit3:
-            renpy.show(spirit3.img, at_list = [spirit3Spot])
+            renpy.show(leader.img, at_list = [leaderSpot])
+        if spirit[0]:
+            renpy.show(spirit[0].img, at_list = [spiritSpot[0]])
+        if spirit[1]:
+            renpy.show(spirit[1].img, at_list = [spiritSpot[1]])
+        if spirit[2]:
+            renpy.show(spirit[2].img, at_list = [spiritSpot[2]])
     
     #show spirit1 at spirit1Spot
     #show spirit2 at spirit2Spot 
@@ -265,13 +270,12 @@ label battle(leader = vesto, spirit1 = party1, spirit2 = party2, spirit3 = party
         while noTarget:
             ui.add(Attack())
             attack = ui.interact()
-            _return = attack
             
             ui.add(Target())
             target = ui.interact()
-            _return += target
             
             if target:
+                _return = attack + " " + target
                 noTarget = False
                 
     return _return

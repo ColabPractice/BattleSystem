@@ -1,28 +1,24 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 15, in script call
-    call battle()
-  File "game/battle.rpy", line 221, in script
-    $ renpy.show("vesto", at_list = [vestoSpot])
-  File "game/battle.rpy", line 222, in <module>
-    $ renpy.show(spirit1.img, at_list = [spirit1Spot])
-NameError: name 'leader' is not defined
+  File "game/battle.rpy", line 281, in script
+    return _return
+  File "game/battle.rpy", line 281, in script
+    return _return
+ScriptError: could not find label '(u'C:\\Users\\Matt\\Documents\\GitHub\\BattleSystem\\Battle/game/script.rpy', 1401337499, 5)'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 15, in script call
-    call battle()
-  File "game/battle.rpy", line 221, in script
-    $ renpy.show("vesto", at_list = [vestoSpot])
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
-    exec bytecode in globals, locals
-  File "game/battle.rpy", line 222, in <module>
-    $ renpy.show(spirit1.img, at_list = [spirit1Spot])
-NameError: name 'leader' is not defined
+  File "game/battle.rpy", line 281, in script
+    return _return
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 1286, in execute
+    next_node(renpy.game.context().lookup_return(pop=True))
+  File "game/battle.rpy", line 281, in script
+    return _return
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\script.py", line 549, in lookup
+    raise ScriptError("could not find label '%s'." % str(label))
+ScriptError: could not find label '(u'C:\\Users\\Matt\\Documents\\GitHub\\BattleSystem\\Battle/game/script.rpy', 1401337499, 5)'.
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.7.521

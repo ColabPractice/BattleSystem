@@ -59,9 +59,7 @@
     ####### Variables #######
     
     python:
-        party1 = None
-        party2 = None
-        party3 = None
+        party = [None, None, None]
         
     
     ####### Actor Objects #######
