@@ -13,7 +13,7 @@ label start:
     $ party[2] = kines
     
     scene
-    call battle()
+    call battle(bossBattle = True)
     scene office with Dissolve(1)
     
     $ renpy.say("", _return)

@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 85: invalid syntax
-            spirit1Skill1Text = Text(_("PUNCH")text_align = 0.5, font = 'impact.ttf', antialias = True, size = 24, color = "#ffffff")
-                                                         ^
+File "game/battle.rpy", line 102: invalid syntax
+            if ev.type = pygame.KEYDOWN and ev.key == pygame.K_SPACE:
+                        ^
     
 
 Ren'Py Version: Ren'Py 6.17.7.521

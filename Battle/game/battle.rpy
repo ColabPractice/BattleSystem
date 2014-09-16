@@ -41,11 +41,12 @@ init:
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
+                # temp button location
                 self.xpos = 200
                 self.ypos = 200
                 
-                self.x = 0
-                self.y = 0
+                self.cursorx = 0
+                self.cursory = 0
                 
                 self.turnOver = False
                 self.skill = 'attack'
@@ -77,9 +78,9 @@ init:
                 r.blit(pi, (self.xpos, self.ypos))
                 
                 # cursor text, display coords
-                text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
+                text = Text(_("(" + str(self.cursorx) + ", " + str(self.cursory) + ")"), size=24, color="#ffffff")
                 cursor = renpy.render(text, 800, 600, st, at)
-                r.blit(cursor, (self.x, self.y))
+                r.blit(cursor, (self.cursorx, self.cursory))
                 
                 # display outlined text on button, centered
                 spirit1Skill1Text = Text(_("PUNCH"), xanchor = 0.5, font = 'impact.ttf',
@@ -96,11 +97,6 @@ init:
                 
                 import pygame
                 
-                # end battle on space, for now 
-                # TODO make a real ending thing
-                if ev.type == pygame.K_SPACE:
-                    self.turnOver = True
-                
                 # Release mouse, trigger button press
                 if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
                     self.mouseDown = False
@@ -109,24 +105,25 @@ init:
                     
                 # Mouse move
                 if ev.type == pygame.MOUSEMOTION:
-                    self.x = x
-                    self.y = y
-                    # position over button
-                    if self.isOnButton(x, y, -180, -90):
-                        if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
-                            self.mouseDown = True
-                        if self.mouseDown: 
-                            self.buttonMode = 2
-                        else: 
-                            self.buttonMode = 1
-                    else:
-                        self.buttonMode = 0
+                    self.cursorx = x
+                    self.cursory = y
+                    
+                # position over button
+                if self.isOnButton(x, y, -180, -90):
+                    if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                        self.mouseDown = True
+                    if self.mouseDown: 
+                        self.buttonMode = 2
+                    else: 
+                        self.buttonMode = 1
+                else:
+                    self.buttonMode = 0
 
-                    # end render cycle
-                    if self.turnOver:
-                        return self.skill
-                    else:
-                        raise renpy.IgnoreEvent()
+                # end render cycle
+                if self.turnOver:
+                    return self.skill
+                else:
+                    raise renpy.IgnoreEvent()
                     
     python:
         # TODO basic functions done, make work with real game
@@ -140,8 +137,8 @@ init:
                 self.selected = None
                 self.target = False
                 
-                self.x = 0
-                self.y = 0
+                self.cursorx = 0
+                self.cursory = 0
                 
                 self.bane1xpos = 810
                 self.bane1ypos = 380
@@ -168,9 +165,9 @@ init:
                     r.blit(pi, (self.bane1xpos if self.bane1 else self.bane2xpos, 
                         self.bane1ypos if self.bane1 else self.bane2ypos))
                 
-                text = Text(_("(" + str(self.x) + ", " + str(self.y) + ")"), size=24, color="#ffffff")
+                text = Text(_("(" + str(self.cursorx) + ", " + str(self.cursory) + ")"), size=24, color="#ffffff")
                 cursor = renpy.render(text, 800, 600, st, at)
-                r.blit(cursor, (self.x, self.y))
+                r.blit(cursor, (self.cursorx, self.cursory))
                 
                 renpy.redraw(self, 0)
                     
@@ -182,16 +179,13 @@ init:
                 import pygame
                 
                 # Cancel attack
-                if ev.type == pygame.KEYDOWN:
-                    #print("key pressed")
-                    if ev.key == pygame.K_SPACE:
-                        #print("space pressed")
-                        return False
-                
+                if (ev.type == pygame.KEYDOWN and ev.key == pygame.K_ESCAPE) or (ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 3):
+                    return False
+
                 # Mouse move
                 if ev.type == pygame.MOUSEMOTION:
-                    self.x = x
-                    self.y = y
+                    self.cursorx = x
+                    self.cursory = y
                     # over a target
                     if self.isInArea(x, y, self.bane1xpos, self.bane1ypos, 50, 50):
                         self.bane1 = True
@@ -212,16 +206,11 @@ init:
                     return self.selected
                 else:
                     raise renpy.IgnoreEvent()
-                self.xpos = 200
-                self.ypos = 200
-                self.turnOver = False
-                
-                self.buttonMode = 0
-                self.mouseDown = False
 
-label battle(leader = vesto, spirit = party):
+label battle(leader = vesto, spirit = party, bossBattle = False):
     
     window hide None
+    $ _game_menu_screen = None
 
     python:
         if leader:
@@ -238,7 +227,6 @@ label battle(leader = vesto, spirit = party):
     #show spirit3 at spirit3Spot
     with Dissolve(.5)
     
-    $ bossBattle = 1
     if bossBattle:
         show smallBane at bossBane1Spot
         #show bane2 at bossBane2Spot 
@@ -278,4 +266,6 @@ label battle(leader = vesto, spirit = party):
                 _return = attack + " " + target
                 noTarget = False
                 
+        
+    $ _game_menu_screen = "save_screen"
     return _return
