@@ -1,42 +1,37 @@
 init:
     
-    python:
-        import math
-
-#        renpy.image("spirit1", im.Scale("assets/cPers.png", 180, 200))
-#        renpy.image("spirit2", im.Scale("assets/cPers.png", 180, 200))
-#        renpy.image("spirit3", im.Scale("assets/cPers.png", 180, 200))
+    $ import math
+    $ import Button
+    
+    # Positions
+    python:        
         
-#        renpy.image("bane1", im.Scale("assets/weakhearth.png", 150, 150))
-#        renpy.image("bane2", im.Scale("assets/weakhearth.png", 150, 150))
-#        renpy.image("bane3", im.Scale("assets/weakhearth.png", 150, 150))
-#        renpy.image("bane4", im.Scale("assets/weakhearth.png", 150, 150))
-#        renpy.image("bane5", im.Scale("assets/weakhearth.png", 150, 150))
-        
-#        renpy.image("boss", im.Scale("assets/ShadowBoss.png", 400, 600))
-        
-#        renpy.image("vesto", im.Scale("assets/vesto.png", 230, 300))
-
-        # TODO temp positions done, tweak them after final images are done
         leaderSpot = Position(xalign=.01, yalign=.5)
         
-        spiritSpot = [Position(xalign=.3, yalign=.5), Position(xalign=.25, yalign=.1), Position(xalign=.25, yalign=.9)]
-        
-        bane1Spot = Position(xalign=.7, yalign=.5)
-        bane2Spot = Position(xalign=.7, yalign=.05)
-        bane3Spot = Position(xalign=.7, yalign=.95)
-        bane4Spot = Position(xalign=.9, yalign=.7)
-        bane5Spot = Position(xalign=.9, yalign=.3)
-        
-        bossBane1Spot = Position(xalign=.65, yalign=.5)
-        bossBane2Spot = Position(xalign=.7, yalign=.1)
-        bossBane3Spot = Position(xalign=.7, yalign=.9)
+        partySpots = [Position(xalign=.3, yalign=.5), 
+            Position(xalign=.25, yalign=.1), 
+            Position(xalign=.25, yalign=.9)]
         
         boss = Position(xalign=.95, yalign=.5)
-
+        
+        enemySpots = [Position(xalign=.7, yalign=.5),
+            Position(xalign=.7, yalign=.05),
+            Position(xalign=.7, yalign=.95),
+            Position(xalign=.9, yalign=.7),
+            Position(xalign=.9, yalign=.3)]
+        
+        enemyBossSpots = [Position(xalign=.65, yalign=.5),
+            Position(xalign=.7, yalign=.1),
+            Position(xalign=.7, yalign=.9)]
+        
+    # set up circle button
     python:
+        
+        
+    # Class and displayable to decide which attack to use of a spirit
+    python:
+        
         class Attack(renpy.Displayable):
-            # TODO select an attack to work with the real game
             
             def __init__(self):
                 renpy.Displayable.__init__(self)
@@ -59,6 +54,7 @@ init:
                     Image("assets/selectRing/TopLeft.png")]
                 self.buttonMode = 0
                 self.mouseDown = False
+                self.buttonPressing = None
             
             # return if cursor is on button
             def isOnButton(self, x, y, angle1, angle2):
@@ -66,6 +62,7 @@ init:
                 if distance >= 10000 and distance <= 40000:
                     angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
                     return angle > angle1 and angle < angle2
+                return False
                             
             # rendering cycle
             def render(self, width, height, st, at):
@@ -92,7 +89,7 @@ init:
                     
                 return r
             
-            # Handles events.
+            # events
             def event(self, ev, x, y, st):
                 
                 import pygame
@@ -103,7 +100,7 @@ init:
                     if self.isOnButton(x, y, -180, -90):
                         self.turnOver = True
                     
-                # Mouse move
+                # Mouse movement
                 if ev.type == pygame.MOUSEMOTION:
                     self.cursorx = x
                     self.cursory = y
@@ -124,10 +121,12 @@ init:
                     return self.skill
                 else:
                     raise renpy.IgnoreEvent()
-                    
+    
+    # After selecting an attack, class for choosing a target
     python:
-        # TODO basic functions done, make work with real game
+        
         class Target(renpy.Displayable):
+            
             def __init__(self):
                 renpy.Displayable.__init__(self)
                 
@@ -207,40 +206,39 @@ init:
                 else:
                     raise renpy.IgnoreEvent()
 
-label battle(leader = vesto, spirit = party, bossBattle = False):
+label battle(leader = vesto, party = spirits, bossBattle = False, enemies = banes):
     
+    #hide dialogue box
     window hide None
+    # disable saving
     $ _game_menu_screen = None
 
     python:
+        # place party members
         if leader:
             renpy.show(leader.img, at_list = [leaderSpot])
-        if spirit[0]:
-            renpy.show(spirit[0].img, at_list = [spiritSpot[0]])
-        if spirit[1]:
-            renpy.show(spirit[1].img, at_list = [spiritSpot[1]])
-        if spirit[2]:
-            renpy.show(spirit[2].img, at_list = [spiritSpot[2]])
-    
-    #show spirit1 at spirit1Spot
-    #show spirit2 at spirit2Spot 
-    #show spirit3 at spirit3Spot
-    with Dissolve(.5)
-    
+        for i in range(len(party)):
+            if party[i]:
+                renpy.show(party[i].img, at_list = [partySpots[i]])
+                
+#        if party[0]:
+#            renpy.show(party[0].img, at_list = [partySpots[0]])
+#        if party[1]:
+#            renpy.show(party[1].img, at_list = [partySpots[1]])
+#        if party[2]:
+#            renpy.show(party[2].img, at_list = [partySpots[2]])
+
     if bossBattle:
-        show smallBane at bossBane1Spot
-        #show bane2 at bossBane2Spot 
-        #show bane3 at bossBane3Spot 
-        with Dissolve(.5)
-        
-        show boss at boss with hpunch
+        show smallBane at enemyBossSpots[0]
+        #show bane2 at enemyBossSpots[1] 
+        #show bane3 at enemyBossSpots[2] 
+        show boss at boss
     else:
-        show bane1 at bane1Spot 
-        show bane2 at bane2Spot 
-        show bane3 at bane3Spot 
-        show bane4 at bane4Spot 
-        show bane5 at bane5Spot
-        with Dissolve(.5)
+        show bane1 at enemySpots[0] 
+        show bane2 at enemySpots[1] 
+        show bane3 at enemySpots[2] 
+        show bane4 at enemySpots[3] 
+        show bane5 at enemySpots[4]
 
     
 #    python:

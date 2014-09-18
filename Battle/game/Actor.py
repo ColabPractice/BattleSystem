@@ -1,5 +1,6 @@
 import random
 
+# General Actor class
 class Actor(object):
     
     def __init__(self, name, image, health = 20):
@@ -31,8 +32,7 @@ class Actor(object):
     def isDead(self):
         return True if self.damageTaken >= self.maxHealth else False
     
-
-# Spirit class
+# Spirit class, child of Actor
 class Spirit(Actor):
     
     def __init__(self, name, image, health = 100, speed = 10, power = 20):
@@ -62,7 +62,7 @@ class Spirit(Actor):
     def timeTillTurn(self):
         return self.nextTurnIn / self.speed
     
-# Bane Class
+# Bane Class, child of Actor
 class Bane(Actor):
     
     def __init__(self, name, image, health = 100, speed = 10, power = 20):

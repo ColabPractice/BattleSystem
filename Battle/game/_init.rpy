@@ -59,7 +59,8 @@
     ####### Variables #######
     
     python:
-        party = [None, None, None]
+        spirits = [None, None, None]
+        banes = [None, None, None, None, None]
         
     
     ####### Actor Objects #######

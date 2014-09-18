@@ -1,11 +1,11 @@
-Mon Sep 15 21:22:55 2014
+Wed Sep 17 19:07:41 2014
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.7.521
 House Guard 0.0
 
 
 Windowed mode.
-Screen sizes: virtual=(1280, 720) physical=(1260, 709)
+Screen sizes: virtual=(1280, 720) physical=(1251, 703)
 Vendor: 'NVIDIA Corporation'
 Renderer: 'GeForce GTX 770/PCIe/SSE2'
 Version: '4.4.0'
@@ -334,8 +334,11 @@ Texture testing:
 Performance test:
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
-- Frame drawn at 0.003000 seconds.
-- Frame drawn at 0.019000 seconds.
-- Frame drawn at 0.036000 seconds.
-- Frame drawn at 0.053000 seconds.
-- 0.053000 seconds to render 5 frames.
+- Frame drawn at 0.020000 seconds.
+- Frame drawn at 0.021000 seconds.
+- Frame drawn at 0.035000 seconds.
+- Frame drawn at 0.052000 seconds.
+- 0.052000 seconds to render 5 frames.
+
+Windowed mode.
+Screen sizes: virtual=(1280, 720) physical=(1251, 699)

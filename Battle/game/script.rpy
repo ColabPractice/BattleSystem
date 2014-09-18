@@ -8,13 +8,13 @@ label start:
     show pers battle
     "show per battle"
 
-    $ party[0] = pers
-    $ party[1] = logi
-    $ party[2] = kines
+    $ spirits[0] = pers
+    $ spirits[1] = logi
+    $ spirits[2] = kines
     
     scene
     call battle(bossBattle = True)
-    scene office with Dissolve(1)
+    scene office
     
     $ renpy.say("", _return)
     "Game end"
