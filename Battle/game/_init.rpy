@@ -74,8 +74,8 @@
     ####### Bane Objects #######
 
     python:
-        bane = Actor.Bane('bob', 'bane_shitling', speed = 7)
-        bob = Actor.Bane('jeff', 'bane_boss', speed = 11)
+        bane = Actor.Bane('bob', 'smallBane', speed = 7)
+        bob = Actor.Bane('jeff', 'boss', speed = 11)
 
     ####### Key Map Changes #######
 

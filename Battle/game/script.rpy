@@ -12,6 +12,9 @@ label start:
     $ spirits[1] = logi
     $ spirits[2] = kines
     
+    $ banes[0] = bob
+    $ banes[1] = bane
+    
     scene
     call battle(bossBattle = True)
     scene office

@@ -1,26 +1,30 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 19, in script
-    $ renpy.say("", _return)
-  File "game/script.rpy", line 19, in <module>
-    $ renpy.say("", _return)
-TypeError: unsupported operand type(s) for %: 'NoneType' and 'TagQuotingDict'
+  File "game/script.rpy", line 19, in script call
+    call battle(bossBattle = True)
+  File "game/battle.rpy", line 212, in script
+    python:
+  File "game/battle.rpy", line 223, in <module>
+    renpy.show(Image(enemies[i].img), at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
+AttributeError: 'Image' object has no attribute 'split'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 19, in script
-    $ renpy.say("", _return)
+  File "game/script.rpy", line 19, in script call
+    call battle(bossBattle = True)
+  File "game/battle.rpy", line 212, in script
+    python:
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/script.rpy", line 19, in <module>
-    $ renpy.say("", _return)
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\exports.py", line 917, in say
-    what = what % tag_quoting_dict
-TypeError: unsupported operand type(s) for %: 'NoneType' and 'TagQuotingDict'
+  File "game/battle.rpy", line 223, in <module>
+    renpy.show(Image(enemies[i].img), at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\exports.py", line 396, in show
+    name = tuple(name.split())
+AttributeError: 'Image' object has no attribute 'split'
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.7.521

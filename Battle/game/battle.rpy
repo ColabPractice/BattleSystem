@@ -1,7 +1,7 @@
 init:
     
     $ import math
-    $ import Button
+    #$ import Button
     
     # Positions
     python:        
@@ -11,22 +11,18 @@ init:
         partySpots = [Position(xalign=.3, yalign=.5), 
             Position(xalign=.25, yalign=.1), 
             Position(xalign=.25, yalign=.9)]
-        
-        boss = Position(xalign=.95, yalign=.5)
-        
+
         enemySpots = [Position(xalign=.7, yalign=.5),
             Position(xalign=.7, yalign=.05),
             Position(xalign=.7, yalign=.95),
             Position(xalign=.9, yalign=.7),
             Position(xalign=.9, yalign=.3)]
         
-        enemyBossSpots = [Position(xalign=.65, yalign=.5),
+        #boss at spot 0
+        enemyBossSpots = [Position(xalign=.95, yalign=.5),
+            Position(xalign=.65, yalign=.5),
             Position(xalign=.7, yalign=.1),
             Position(xalign=.7, yalign=.9)]
-        
-    # set up circle button
-    python:
-        
         
     # Class and displayable to decide which attack to use of a spirit
     python:
@@ -220,7 +216,13 @@ label battle(leader = vesto, party = spirits, bossBattle = False, enemies = bane
         for i in range(len(party)):
             if party[i]:
                 renpy.show(party[i].img, at_list = [partySpots[i]])
+    
+        # place enemies
+        for i in range(len(enemies)):
+            if enemies[i]:
+                renpy.show(enemies[i].img, at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
                 
+    
 #        if party[0]:
 #            renpy.show(party[0].img, at_list = [partySpots[0]])
 #        if party[1]:
@@ -228,17 +230,17 @@ label battle(leader = vesto, party = spirits, bossBattle = False, enemies = bane
 #        if party[2]:
 #            renpy.show(party[2].img, at_list = [partySpots[2]])
 
-    if bossBattle:
-        show smallBane at enemyBossSpots[0]
-        #show bane2 at enemyBossSpots[1] 
-        #show bane3 at enemyBossSpots[2] 
-        show boss at boss
-    else:
-        show bane1 at enemySpots[0] 
-        show bane2 at enemySpots[1] 
-        show bane3 at enemySpots[2] 
-        show bane4 at enemySpots[3] 
-        show bane5 at enemySpots[4]
+#    if bossBattle:
+#        show smallBane at enemyBossSpots[0]
+#        #show bane2 at enemyBossSpots[1] 
+#        #show bane3 at enemyBossSpots[2] 
+#        show boss at boss
+#    else:
+#        show bane1 at enemySpots[0] 
+#        show bane2 at enemySpots[1] 
+#        show bane3 at enemySpots[2] 
+#        show bane4 at enemySpots[3] 
+#        show bane5 at enemySpots[4]
 
     
 #    python:
