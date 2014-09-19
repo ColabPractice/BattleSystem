@@ -66,6 +66,51 @@ init:
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
                 
+                # test button circle
+                # images clockwise starting at 9 'o clock
+#                buttons = [Image("assets/SelectWheelH.png"), 
+#                    Image("assets/SelectWheelV.png"),
+#                    im.Flip("assets/SelectWheelH.png", horizontal = True),
+#                    im.Flip("assets/SelectWheelV.png", vertical = True)]
+                
+#                b = [renpy.render(buttons[0], 100, 100, st, at),
+#                    renpy.render(buttons[1], 100, 100, st, at),
+#                    renpy.render(buttons[2], 100, 100, st, at),
+#                    renpy.render(buttons[3], 100, 100, st, at)]
+                
+#                centerx = self.cursorx
+#                centery = self.cursory
+#                r.blit(b[0], (centerx - 199, centery - 142))
+#                r.blit(b[1], (centerx - 142, centery - 199))
+#                r.blit(b[2], (centerx - 1, centery - 142))
+#                r.blit(b[3], (centerx - 142, centery - 1))
+                
+#                persIcon = Image("assets/pers_icon.png")
+#                p = renpy.render(persIcon, 200, 200, st, at)
+#                r.blit(p, (centerx - 100, centery - 100))
+
+                # Small version
+                buttons = [im.Scale(Image("assets/SelectWheelH.png"), 150, 214), 
+                    im.Scale(Image("assets/SelectWheelV.png"), 214, 150),
+                    im.Scale(im.Flip("assets/SelectWheelH.png", horizontal = True), 150, 214),
+                    im.Scale(im.Flip("assets/SelectWheelV.png", vertical = True), 214, 150)]
+                
+                b = [renpy.render(buttons[0], 100, 100, st, at),
+                    renpy.render(buttons[1], 100, 100, st, at),
+                    renpy.render(buttons[2], 100, 100, st, at),
+                    renpy.render(buttons[3], 100, 100, st, at)]
+                
+                centerx = self.cursorx
+                centery = self.cursory
+                r.blit(b[0], (centerx - 149, centery - 107))
+                r.blit(b[1], (centerx - 107, centery - 149))
+                r.blit(b[2], (centerx - 1, centery - 107))
+                r.blit(b[3], (centerx - 107, centery - 1))
+                
+                persIcon = Image("assets/pers_icon.png")
+                p = renpy.render(im.Scale(persIcon, 150, 150), 200, 200, st, at)
+                r.blit(p, (centerx - 75, centery - 75))
+                
                 # button
                 pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
                 r.blit(pi, (self.xpos, self.ypos))

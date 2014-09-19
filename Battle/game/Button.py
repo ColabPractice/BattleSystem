@@ -6,6 +6,7 @@ class CircleButton(object):
         # 0 = normal button
         # 1 = hover over button
         # 2 = clicking button
+        # 3 = disabled
         self.image = image
         
         self.text = ""

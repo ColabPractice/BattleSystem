@@ -3,28 +3,52 @@
 While running game code:
   File "game/script.rpy", line 19, in script call
     call battle(bossBattle = True)
-  File "game/battle.rpy", line 212, in script
+  File "game/battle.rpy", line 279, in script
     python:
-  File "game/battle.rpy", line 223, in <module>
-    renpy.show(Image(enemies[i].img), at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
-AttributeError: 'Image' object has no attribute 'split'
+  File "game/battle.rpy", line 283, in <module>
+    attack = ui.interact()
+  File "game/battle.rpy", line 81, in render
+    centerx = cursorx
+NameError: global name 'cursorx' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
   File "game/script.rpy", line 19, in script call
     call battle(bossBattle = True)
-  File "game/battle.rpy", line 212, in script
+  File "game/battle.rpy", line 279, in script
     python:
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ast.py", line 756, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\python.py", line 1382, in py_exec_bytecode
     exec bytecode in globals, locals
-  File "game/battle.rpy", line 223, in <module>
-    renpy.show(Image(enemies[i].img), at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
-  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\exports.py", line 396, in show
-    name = tuple(name.split())
-AttributeError: 'Image' object has no attribute 'split'
+  File "game/battle.rpy", line 283, in <module>
+    attack = ui.interact()
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\ui.py", line 264, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2065, in interact
+    repeat, rv = self.interact_core(preloads=preloads, **kwargs)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 2390, in interact_core
+    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\core.py", line 1591, in draw_screen
+    renpy.config.screen_height,
+  File "render.pyx", line 362, in renpy.display.render.render_screen (gen\renpy.display.render.c:5303)
+  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
+  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
+  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
+  File "C:\Users\Matt\Desktop\renpy-6.16.5-sdk\renpy\display\layout.py", line 549, in render
+    surf = render(child, width, height, cst, cat)
+  File "render.pyx", line 95, in renpy.display.render.render (gen\renpy.display.render.c:2767)
+  File "render.pyx", line 166, in renpy.display.render.render (gen\renpy.display.render.c:2494)
+  File "game/battle.rpy", line 81, in render
+    centerx = cursorx
+NameError: global name 'cursorx' is not defined
 
 Windows-7-6.1.7601-SP1
 Ren'Py 6.17.7.521
