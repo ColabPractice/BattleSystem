@@ -83,3 +83,5 @@
         config.keymap['dismiss'].remove('K_SPACE')
         config.keymap['hide_windows'].append('K_SPACE')
         config.keymap['game_menu'].remove('mouseup_3')
+        
+    

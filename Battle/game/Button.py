@@ -2,7 +2,7 @@
 
 class CircleButton(object):
     
-    __init__(self, image, angle1, angle2):
+    __init__(self, image):
         # 0 = normal button
         # 1 = hover over button
         # 2 = clicking button
