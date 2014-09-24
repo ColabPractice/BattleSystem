@@ -2,8 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/battle.rpy", line 28: python block expects a non-empty block.
-    python:
-           ^
+File "game/_init.rpy", line 130: invalid syntax
+        __init__(self, image):
+                              ^
+    
 
 Ren'Py Version: Ren'Py 6.17.7.521
