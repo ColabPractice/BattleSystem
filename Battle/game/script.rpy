@@ -16,7 +16,7 @@ label start:
     $ banes[1] = bane
     
     scene
-    call battle(bossBattle = True)
+    call battle()
     scene office
     
     $ renpy.say("", _return)

@@ -6,23 +6,19 @@ init:
     # Positions
     python:        
         
-        leaderSpot = Position(xalign=.01, yalign=.5)
+        leaderSpot = Position(xalign=0, yalign=0)
         
-        partySpots = [Position(xalign=.3, yalign=.5), 
-            Position(xalign=.25, yalign=.1), 
-            Position(xalign=.25, yalign=.9)]
+        partySpots = [Position(xalign=.02, yalign=.33), 
+            Position(xalign=.02, yalign=.6), 
+            Position(xalign=.02, yalign=.87)]
 
-        enemySpots = [Position(xalign=.7, yalign=.5),
-            Position(xalign=.7, yalign=.05),
-            Position(xalign=.7, yalign=.95),
-            Position(xalign=.9, yalign=.7),
-            Position(xalign=.9, yalign=.3)]
+        bossSpot = Position(xalign=1, yalign=0)
         
-        #boss at spot 0
-        enemyBossSpots = [Position(xalign=.95, yalign=.5),
-            Position(xalign=.65, yalign=.5),
-            Position(xalign=.7, yalign=.1),
-            Position(xalign=.7, yalign=.9)]
+        enemySpots = [Position(xalign=.98, yalign=.5),
+            Position(xalign=.98, yalign=.05),
+            Position(xalign=.98, yalign=.95),
+            Position(xalign=.98, yalign=.7),
+            Position(xalign=.98, yalign=.3)]
         
     # Class and displayable to decide which attack to use of a spirit
     python:
@@ -65,51 +61,6 @@ init:
 
                 # The Render object we'll be drawing into.
                 r = renpy.Render(width, height)
-                
-                # test button circle
-                # images clockwise starting at 9 'o clock
-#                buttons = [Image("assets/SelectWheelH.png"), 
-#                    Image("assets/SelectWheelV.png"),
-#                    im.Flip("assets/SelectWheelH.png", horizontal = True),
-#                    im.Flip("assets/SelectWheelV.png", vertical = True)]
-                
-#                b = [renpy.render(buttons[0], 100, 100, st, at),
-#                    renpy.render(buttons[1], 100, 100, st, at),
-#                    renpy.render(buttons[2], 100, 100, st, at),
-#                    renpy.render(buttons[3], 100, 100, st, at)]
-                
-#                centerx = self.cursorx
-#                centery = self.cursory
-#                r.blit(b[0], (centerx - 199, centery - 142))
-#                r.blit(b[1], (centerx - 142, centery - 199))
-#                r.blit(b[2], (centerx - 1, centery - 142))
-#                r.blit(b[3], (centerx - 142, centery - 1))
-                
-#                persIcon = Image("assets/pers_icon.png")
-#                p = renpy.render(persIcon, 200, 200, st, at)
-#                r.blit(p, (centerx - 100, centery - 100))
-
-                # Small version
-                buttons = [im.Scale(Image("assets/SelectWheelH.png"), 150, 214), 
-                    im.Scale(Image("assets/SelectWheelV.png"), 214, 150),
-                    im.Scale(im.Flip("assets/SelectWheelH.png", horizontal = True), 150, 214),
-                    im.Scale(im.Flip("assets/SelectWheelV.png", vertical = True), 214, 150)]
-                
-                b = [renpy.render(buttons[0], 100, 100, st, at),
-                    renpy.render(buttons[1], 100, 100, st, at),
-                    renpy.render(buttons[2], 100, 100, st, at),
-                    renpy.render(buttons[3], 100, 100, st, at)]
-                
-                centerx = self.cursorx
-                centery = self.cursory
-                r.blit(b[0], (centerx - 149, centery - 107))
-                r.blit(b[1], (centerx - 107, centery - 149))
-                r.blit(b[2], (centerx - 1, centery - 107))
-                r.blit(b[3], (centerx - 107, centery - 1))
-                
-                persIcon = Image("assets/pers_icon.png")
-                p = renpy.render(im.Scale(persIcon, 150, 150), 200, 200, st, at)
-                r.blit(p, (centerx - 75, centery - 75))
                 
                 # button
                 pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
@@ -247,7 +198,7 @@ init:
                 else:
                     raise renpy.IgnoreEvent()
 
-label battle(leader = vesto, party = spirits, bossBattle = False, enemies = banes):
+label battle(leader = vesto, party = spirits, boss = None, enemies = banes):
     
     #hide dialogue box
     window hide None
@@ -263,39 +214,12 @@ label battle(leader = vesto, party = spirits, bossBattle = False, enemies = bane
                 renpy.show(party[i].img, at_list = [partySpots[i]])
     
         # place enemies
+        if boss:
+            renpy.show(boss.img, at_list = [bossSpot])
         for i in range(len(enemies)):
             if enemies[i]:
-                renpy.show(enemies[i].img, at_list = [enemyBossSpots[i] if bossBattle else enemySpots[i]])
-                
-    
-#        if party[0]:
-#            renpy.show(party[0].img, at_list = [partySpots[0]])
-#        if party[1]:
-#            renpy.show(party[1].img, at_list = [partySpots[1]])
-#        if party[2]:
-#            renpy.show(party[2].img, at_list = [partySpots[2]])
+                renpy.show(enemies[i].img, at_list = [enemySpots[i]])
 
-#    if bossBattle:
-#        show smallBane at enemyBossSpots[0]
-#        #show bane2 at enemyBossSpots[1] 
-#        #show bane3 at enemyBossSpots[2] 
-#        show boss at boss
-#    else:
-#        show bane1 at enemySpots[0] 
-#        show bane2 at enemySpots[1] 
-#        show bane3 at enemySpots[2] 
-#        show bane4 at enemySpots[3] 
-#        show bane5 at enemySpots[4]
-
-    
-#    python:
-#        def clicky():
-#            renpy.sound.play('assets/smw_1-up.wav')
-        
-#        ui.imagebutton(Image('Mario-icon.png')
-#            , im.MatrixColor(Image('Mario-icon.png'), im.matrix.invert())
-#            , Image('Mario-icon.png')
-#            , clicked = clicky)
     
 
     python:
