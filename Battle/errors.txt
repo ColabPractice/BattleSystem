@@ -2,9 +2,7 @@
 errors listed below, and try again.
 
 
-File "game/_init.rpy", line 130: invalid syntax
-        __init__(self, image):
-                              ^
-    
+File "game/battle.rpy", line 69: is not terminated with a newline. (Check strings and parenthesis.)
+                        r.blit(b, (button.x, button.y)
 
 Ren'Py Version: Ren'Py 6.17.7.521

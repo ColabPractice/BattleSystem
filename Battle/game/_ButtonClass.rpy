@@ -2,25 +2,30 @@
 init:
     python:
         
-        class CircleButton(object):
+        class Button(object):
             
-            def __init__(self, image):
+            def __init__(self, x, y, text = "", icon = None):
                 # 0 = normal button
                 # 1 = hover over button
                 # 2 = clicking button
-                # 3 = disabled
-                self.image = image
+
+                self.image = [Image("assets/button.png"),
+                    Image("assets/button_hover.png"),
+                    Image("assets/button_click.png")]
                 
-                self.text = ""
-                self.posX = 0
-                self.posY = 0
-                self.angle1 = angle1
-                self.angle2 = angle2
+                self.icon = icon
+                self.text = text
+                self.posX = x
+                self.posY = y
                 self.buttonMode = 0
+                self.visible = True
             
+            # return if coords are within 37.5 of the button and button is visible
             def isOnButton(self, x, y):
-                distance = (x - 400)**2 + (y - 400)**2
-                if distance >= 10000 and distance <= 40000:
-                    angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
-                    return angle > self.angle1 and angle < self.angle2
-                return False      
+                distance = (x - self.posX - 75/2)**2 + (y - self.posY - 75/2)**2
+                if distance <= (75/2)**2:
+                    return self.visible
+                
+            def getImage(self):
+                return self.image[self.buttonMode]
+            

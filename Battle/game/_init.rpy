@@ -29,8 +29,19 @@ init:
         renpy.image('kines battle', kines_path.substitute(expression = '_battle'))
         renpy.image('kines battle_s', kines_path.substitute(expression = '_battle_s'))
 
-    image smallBane = "assets/bane_shitling.png"
-    image boss = "assets/bane_boss.png"
+        smallBane_path = Template('assets/bane_shitling$expression.png')
+        for i in range(5):
+            renpy.image('smallBane' + str(i), smallBane_path.substitute(expression = ''))
+            renpy.image('smallBane' + str(i) + ' battle', smallBane_path.substitute(expression = '_icon'))
+            renpy.image('smallBane' + str(i) + ' battle_s', smallBane_path.substitute(expression = '_battle_s'))
+        
+        boss_path = Template('assets/bane_boss$expression.png')
+        renpy.image('boss', boss_path.substitute(expression = ''))
+        renpy.image('boss battle', boss_path.substitute(expression = '_icon'))
+        renpy.image('boss battle_s', boss_path.substitute(expression = '_battle_s'))
+
+    #image smallBane = "assets/bane_shitling.png"
+    #image boss = "assets/bane_boss.png"
 
     ####### Sprites #######
 
@@ -65,15 +76,17 @@ init:
     ####### Actor Objects #######
 
     python:
-        vesto = Actor('Vesto', 'vesto battle_s')
-        pers = Spirit('Pers', 'pers battle_s') # speed = 10
-        logi = Spirit('Logi', 'logi battle_s', speed = 13)
-        kines = Spirit('Kines', 'kines battle_s', speed = 20, power = 15)
+        vesto = Actor('Vesto', 'vesto')
+        pers = Spirit('Pers', 'pers') # speed = 10
+        logi = Spirit('Logi', 'logi', speed = 13)
+        kines = Spirit('Kines', 'kines', speed = 20, power = 15)
 
     ####### Bane Objects #######
 
     python:
-        bane = Bane('bob', 'smallBane', speed = 7)
+        bane = []
+        for i in range(5):
+            bane.append(Bane('bob' + str(i), 'smallBane' + str(i), speed = 7))
         bob = Bane('jeff', 'boss', speed = 11)
 
     ####### Key Map Changes #######

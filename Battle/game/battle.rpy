@@ -6,76 +6,77 @@ init:
     # Positions
     python:        
         
-        leaderSpot = Position(xalign=0, yalign=0)
+        leaderSpot = Position(xalign=0.00, yalign=-0.03)
         
-        partySpots = [Position(xalign=.02, yalign=.33), 
-            Position(xalign=.02, yalign=.6), 
-            Position(xalign=.02, yalign=.87)]
+        partySpots = [Position(xalign=0.02, yalign=0.33), 
+            Position(xalign=0.02, yalign=0.60), 
+            Position(xalign=0.02, yalign=0.87)]
 
-        bossSpot = Position(xalign=1, yalign=0)
+        bossSpot = Position(xalign=1.0, yalign=-0.03)
         
-        enemySpots = [Position(xalign=.98, yalign=.5),
-            Position(xalign=.98, yalign=.05),
-            Position(xalign=.98, yalign=.95),
-            Position(xalign=.98, yalign=.7),
-            Position(xalign=.98, yalign=.3)]
+        enemySpots = [Position(xalign=0.98, yalign=0.30),
+            Position(xalign=0.98, yalign=0.4625),
+            Position(xalign=0.98, yalign=0.625),
+            Position(xalign=0.98, yalign=0.7875),
+            Position(xalign=0.98, yalign=0.95)]
         
     # Class and displayable to decide which attack to use of a spirit
     python:
         
         class Attack(renpy.Displayable):
             
-            def __init__(self):
+            def __init__(self, spirit):
                 renpy.Displayable.__init__(self)
                 
-                # temp button location
-                self.xpos = 200
-                self.ypos = 200
-                
+                self.buttons = [Button(550, 255), # Attack button
+                    #self.attackButton.icon = spirit.attack.icon
+                    
+                    Button(490, 110), # Skill 1 button
+                    #self.skill1Button.icon = spirit.skill1.icon
+
+                    Button(490, 420), # Skill 2 button
+                    #self.skill2Button.icon = spirit.skill2.icon
+                    
+                    Button(610, 190), # Combo Skill 1 button
+                    #self.comboSkill1Button.icon = spirit.combo1.icon
+                    
+                    Button(610, 340), # Combo Skill 2 button
+                    #self.comboSkil12Button.icon = spirit.combo2.icon
+                    
+                    Button(240, 110)] # Defend button
+                    #self.defendIcon = #defend icon
+
+                # cursor location
                 self.cursorx = 0
                 self.cursory = 0
                 
-                self.turnOver = False
-                self.skill = 'attack'
-                
-                # 0 = normal button
-                # 1 = hover over button
-                # 2 = clicking button
-                self.button = [Image("assets/selectRing/TopLeftCircle.png"), 
-                    Image("assets/selectRing/TopLeftCircleHover.png"), 
-                    Image("assets/selectRing/TopLeft.png")]
-                self.buttonMode = 0
-                self.mouseDown = False
+                # skill used
+                self.skill = None
+
                 self.buttonPressing = None
             
-            # return if cursor is on button
-            def isOnButton(self, x, y, angle1, angle2):
-                distance = (x - 400)**2 + (y - 400)**2
-                if distance >= 10000 and distance <= 40000:
-                    angle = math.atan2((y - 400), (x - 400)) * 180 / math.pi
-                    return angle > angle1 and angle < angle2
-                return False
-                            
             # rendering cycle
             def render(self, width, height, st, at):
-
-                # The Render object we'll be drawing into.
-                r = renpy.Render(width, height)
                 
-                # button
-                pi = renpy.render(self.button[self.buttonMode], 200, 200, st, at)
-                r.blit(pi, (self.xpos, self.ypos))
+                # select skill if none selected
+                if not self.skill:
+                    # The Render object we'll be drawing into.
+                    r = renpy.Render(width, height)
+                    
+                    # buttons
+                    for button in self.buttons:
+                        if button.visible:
+                            b = renpy.render(button.getImage(), 75, 75, st, at)
+                            r.blit(b, (button.posX, button.posY))
                 
+                # choose target after skill selection
+                else:
+                    pass
+                    
                 # cursor text, display coords
                 text = Text(_("(" + str(self.cursorx) + ", " + str(self.cursory) + ")"), size=24, color="#ffffff")
                 cursor = renpy.render(text, 800, 600, st, at)
                 r.blit(cursor, (self.cursorx, self.cursory))
-                
-                # display outlined text on button, centered
-                spirit1Skill1Text = Text(_("PUNCH"), xanchor = 0.5, font = 'impact.ttf',
-                    antialias = True, size = 24, color = "#ffffff", outlines = [(4, "#000000", 0, 0)])
-                spirit1Skill1 = renpy.render(spirit1Skill1Text, 500, 500, st, at)
-                r.blit(spirit1Skill1, (267 - spirit1Skill1.width / 2, 264))
                 
                 renpy.redraw(self, 0)
                     
@@ -86,31 +87,41 @@ init:
                 
                 import pygame
                 
-                # Release mouse, trigger button press
-                if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
-                    self.mouseDown = False
-                    if self.isOnButton(x, y, -180, -90):
-                        self.turnOver = True
-                    
+                if not self.skill:
+                    # Release mouse, trigger button press
+                    if ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
+                        if self.buttonPressing:
+                            if self.buttonPressing.isOnButton(x, y):
+                                self.skill = self.buttons.index(self.buttonPressing)
+                            self.buttonPressing = None
+                        
+                    # position over button
+                    for button in self.buttons:
+                        if button.isOnButton(x, y):
+                            if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                                self.buttonPressing = button
+                            if self.buttonPressing == button: 
+                                button.buttonMode = 2
+                            else: 
+                                button.buttonMode = 1
+                        else:
+                            button.buttonMode = 0
+                
                 # Mouse movement
                 if ev.type == pygame.MOUSEMOTION:
                     self.cursorx = x
                     self.cursory = y
-                    
-                # position over button
-                if self.isOnButton(x, y, -180, -90):
-                    if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
-                        self.mouseDown = True
-                    if self.mouseDown: 
-                        self.buttonMode = 2
-                    else: 
-                        self.buttonMode = 1
-                else:
-                    self.buttonMode = 0
 
                 # end render cycle
-                if self.turnOver:
-                    return self.skill
+                if self.skill:
+                    return {
+                        0 : 'attack',
+                        1 : 'skill1',
+                        2 : 'skill2',
+                        3 : 'combo1',
+                        4 : 'combo2',
+                        5 : 'defend'
+                        } [self.skill]
                 else:
                     raise renpy.IgnoreEvent()
     
@@ -208,24 +219,24 @@ label battle(leader = vesto, party = spirits, boss = None, enemies = banes):
     python:
         # place party members
         if leader:
-            renpy.show(leader.img, at_list = [leaderSpot])
+            renpy.show(leader.img + ' battle_s', at_list = [leaderSpot])
         for i in range(len(party)):
             if party[i]:
-                renpy.show(party[i].img, at_list = [partySpots[i]])
+                renpy.show(party[i].img + ' battle_s', at_list = [partySpots[i]])
     
         # place enemies
         if boss:
-            renpy.show(boss.img, at_list = [bossSpot])
+            renpy.show(boss.img + ' battle_s', at_list = [bossSpot])
         for i in range(len(enemies)):
             if enemies[i]:
-                renpy.show(enemies[i].img, at_list = [enemySpots[i]])
+                renpy.show(enemies[i].img + ' battle_s', at_list = [enemySpots[i]])
 
     
 
     python:
         noTarget = True
         while noTarget:
-            ui.add(Attack())
+            ui.add(Attack(party[0]))
             attack = ui.interact()
             
             ui.add(Target())
